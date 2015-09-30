@@ -61,7 +61,7 @@ public class BotArrow {
         catch (ArrayIndexOutOfBoundsException e) {
         }
         for(BotArrow botArrow : game.gs.botArrows)
-                batch.draw(botArrow.arrowImg,botArrow.xPosition,botArrow.yPosition,botArrow.xOrigin,botArrow.yOrigin,botArrow.arrowWidth,botArrow.arrowHeight,botArrow.xScale,botArrow.yScale,botArrow.rotation,0,0,185,1762,false,false);
+                batch.draw(arrowImg,botArrow.xPosition,botArrow.yPosition,botArrow.xOrigin,botArrow.yOrigin,botArrow.arrowWidth,botArrow.arrowHeight,botArrow.xScale,botArrow.yScale,botArrow.rotation,0,0,185,1762,false,false);
     }
 
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.zeher.kombat.Screens.GameScreen;
 
-import java.util.Arrays;
 
 
 /**
@@ -46,7 +45,7 @@ public class Bot {
     public void render(){
         //Gdx.app.log("alive :", work.isAlive() + "");
         batch.setProjectionMatrix(gs.game.camera.combined);
-        batch.draw(character, xPosition, gs.game.height / screenFractionAbove0, gs.game.width / screenFractionCharWidth, gs.game.height / screenFractionCharHeight,0,0,88,178,true,false);
+        batch.draw(character, xPosition, gs.game.height / screenFractionAbove0, gs.game.width / screenFractionCharWidth, gs.game.height / screenFractionCharHeight, 0, 0, 88, 178, true, false);
     }
     public void startWorking() {
         work=new Thread(new Runnable() {
@@ -142,7 +141,7 @@ public class Bot {
         safeRanges.add(one);
         while(spaceLeft && i<xRangesToAvoid.size){
             //Gdx.app.log("got in line :","113");
-            Rectangle rect=xRangesToAvoid.get(i);
+            Rectangle rect=  xRangesToAvoid.get(i);
             i++;
             for(int j=0;j<safeRanges.size;j++) {
                 Rectangle cur=safeRanges.get(j);
@@ -177,11 +176,7 @@ public class Bot {
                     if(addThis.y-addThis.x>=character.getWidth())
                         safeRanges.add(addThis);
                 }
-                if(safeRanges.size>0){
-                    spaceLeft=true;
-                }
-                else
-                    spaceLeft=false;
+                spaceLeft = safeRanges.size > 0;
                 j++;
             }
         }
@@ -229,16 +224,25 @@ public class Bot {
         if(xPosition>x){
             update=-update;
         }
-        while(xPosition!=x){
+
+        while(notReached(update,x)){
             try {
                 Thread.sleep(5);
             }
             catch (InterruptedException e){
-
+                //do nothing
             }
             xPosition+=update;
             gs.botArrows.get(gs.botArrows.size-1).xPosition=(int)((gs.bot.xPosition)+(((float)50/88)*(gs.game.width/gs.bot.screenFractionCharWidth)));
         }
+    }
+    public boolean notReached(float update,int x){
+        boolean notReached=true;
+        if(update>0 && xPosition>=x)
+            notReached=false;
+        else if(update<=0 && xPosition<=x)
+            notReached=false;
+        return notReached;
     }
     public void dispose(){
         character.dispose();

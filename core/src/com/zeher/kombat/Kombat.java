@@ -2,12 +2,11 @@ package com.zeher.kombat;
 /*
     To DO
     1. bot won, my score goes to negative
-    2. levels
+    next 2. levels
     4. graphics
     5. Sound
     6. take GS input via multiplexing real buttons
-    next 7. backup all code
-    8. Bot goes out of screen in level 48
+
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
