@@ -51,9 +51,8 @@ public class GameScreen implements Screen{
         width=game.width;
         height=game.height;
         playerChar = new PlayerChar(this);
-        arrows=new Array();
+        arrows=new Array(); //already done above
         botArrows= new Array();
-        bot = new Bot(this);
         controls = new Controls(this);
     }
 
@@ -65,6 +64,7 @@ public class GameScreen implements Screen{
 //        map=new Map(this,mapPNG);
 //        //keepChangingBrickTypes(); //starts a thread which changes the brick-types in every 5 sec.
         //maprenderer=new MapRenderer(this);
+        bot = new Bot(game);
         initMglNewArrow();
         initMglNewBotArrow();
 
@@ -72,6 +72,8 @@ public class GameScreen implements Screen{
         BotArrow.arrowImg=new Texture("arrow.png");
         BotArrow.bow=new Texture("bow.png");
         game.font.setScale(4);
+
+
         Gdx.app.log("in gs show","yo");
     }
     public void initMglNewArrow(){
@@ -198,6 +200,7 @@ public class GameScreen implements Screen{
         bot.arrow_interval=10000/(params[0]+1);
         bot.walkSpeed=params[1]+1;
         bot.arrowSpeed=10/(params[2]+1);
+        bot.accuracy=10/(params[3]+1);
 
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;

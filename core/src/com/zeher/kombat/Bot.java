@@ -3,6 +3,7 @@ package com.zeher.kombat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.zeher.kombat.Screens.GameScreen;
@@ -14,7 +15,7 @@ import com.zeher.kombat.Screens.GameScreen;
  * Class representing the characters on our side in game
  */
 public class Bot {
-    GameScreen gs;
+    Kombat game;
     Texture character;
     SpriteBatch batch;
     public int walkSpeed;
@@ -29,12 +30,14 @@ public class Bot {
     public int arrow_interval;    //starts from zero
     final float botPlayerWalkspeedRatio=4;
     public int arrowSpeed;
-    public Bot(GameScreen gs){
-        this.gs=gs;
+    public int accuracy; //lesser the more accurate
+    public int noOfArrowsFired;
+    public Bot(Kombat game){
+        this.game=game;
         lives=5;
-        this.batch=gs.batch;
+        this.batch=game.batch;
         character = new Texture("player.png");
-        xPosition=gs.game.width/2;
+        xPosition=game.width/2;
        // walkSpeed=5;
         screenFractionAbove0=1.28f;
         screenFractionCharWidth=6;
@@ -44,8 +47,8 @@ public class Bot {
     }
     public void render(){
         //Gdx.app.log("alive :", work.isAlive() + "");
-        batch.setProjectionMatrix(gs.game.camera.combined);
-        batch.draw(character, xPosition, gs.game.height / screenFractionAbove0, gs.game.width / screenFractionCharWidth, gs.game.height / screenFractionCharHeight, 0, 0, 88, 178, true, false);
+        batch.setProjectionMatrix(game.camera.combined);
+        batch.draw(character, xPosition, game.height / screenFractionAbove0, game.width / screenFractionCharWidth, game.height / screenFractionCharHeight, 0, 0, 88, 178, true, false);
     }
     public void startWorking() {
         work=new Thread(new Runnable() {
@@ -58,14 +61,15 @@ public class Bot {
                         if (isSafe()) {
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
-                            if (gs.botArrows.size > 0 ) {
+                            if (game.gs.botArrows.size > 0 ) {
 
                                 //Gdx.app.log("time :",System.currentTimeMillis()-lastArrowShot+"");
                                 if(System.currentTimeMillis()-lastArrowShot>arrow_interval) {
                                     Gdx.app.log("arrow interval",arrow_interval+"");
                                     aim();
-                                    gs.botArrows.get(gs.botArrows.size - 1).fire();
-                                    gs.initMglNewBotArrow();
+                                    game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
+                                    noOfArrowsFired++;
+                                    game.gs.initMglNewBotArrow();
                                     lastArrowShot=System.currentTimeMillis();
                                 }
 
@@ -93,11 +97,11 @@ public class Bot {
             xRangesToAvoid.removeIndex(0);// clear everytime for correct results
         int i=0;
         boolean isSafe=true;
-        if(gs.arrows.size>0) {
-            Arrow arrowtoDodge = gs.arrows.get(i);
-            while (arrowtoDodge.yPosition > gs.game.height/4) {
-                float expectedXAtBotOrigin = ((gs.game.height / screenFractionAbove0) - arrowtoDodge.c) / arrowtoDodge.m;
-                float expectedXAtBotEnd = ((gs.game.height / screenFractionAbove0) + character.getHeight() - arrowtoDodge.c) / arrowtoDodge.m;
+        if(game.gs.arrows.size>0) {
+            Arrow arrowtoDodge = game.gs.arrows.get(i);
+            while (arrowtoDodge.yPosition > game.height/4) {
+                float expectedXAtBotOrigin = ((game.height / screenFractionAbove0) - arrowtoDodge.c) / arrowtoDodge.m;
+                float expectedXAtBotEnd = ((game.height / screenFractionAbove0) + character.getHeight() - arrowtoDodge.c) / arrowtoDodge.m;
                 if(expectedXAtBotEnd<expectedXAtBotOrigin){
                     expectedXAtBotEnd+=expectedXAtBotOrigin;
                     expectedXAtBotOrigin=expectedXAtBotEnd-expectedXAtBotOrigin;
@@ -108,8 +112,8 @@ public class Bot {
                 Rectangle rect=new Rectangle();
                 rect.x= (int) (expectedXAtBotOrigin-character.getWidth());
                 //next is to avoid bot from going out of arena :D ......loser
-                if(gs.game.width-gs.playerChar.character.getWidth()<expectedXAtBotEnd)
-                    rect.y=gs.game.width-gs.playerChar.character.getWidth();
+                if(game.width-game.gs.playerChar.character.getWidth()<expectedXAtBotEnd)
+                    rect.y=game.width-game.gs.playerChar.character.getWidth();
                 else
                     rect.y=(int)expectedXAtBotEnd;                       // x and y represent the range from which xposition should be out
                 xRangesToAvoid.add(rect);
@@ -121,8 +125,8 @@ public class Bot {
 //                    Gdx.app.log("need to dodge:", "no");
                 }
                 i++;
-                if(gs.arrows.size>i)
-                    arrowtoDodge= gs.arrows.get(i);
+                if(game.gs.arrows.size>i)
+                    arrowtoDodge= game.gs.arrows.get(i);
             }
         }
 
@@ -136,7 +140,7 @@ public class Bot {
         safeRanges=new Array();
         Rectangle one=new Rectangle();
         one.x=0;
-        one.y=gs.game.width-gs.playerChar.character.getWidth();
+        one.y=game.width-game.gs.playerChar.character.getWidth();
         Gdx.app.log("max :",one.y+"");
         safeRanges.add(one);
         while(spaceLeft && i<xRangesToAvoid.size){
@@ -211,13 +215,19 @@ public class Bot {
     }
     public void aim(){
         float x1=xPosition;
-        float y1=gs.game.height / screenFractionAbove0;
-        float x2=gs.playerChar.xPosition;
-        float y2=gs.game.height/gs.playerChar.screenFractionAbove0;
-        gs.botArrows.get(gs.botArrows.size-1).rotation=(float)Math.toDegrees(Math.atan((y2 - y1) / (x2-x1)))-90;
-        if(gs.botArrows.get(gs.botArrows.size-1).rotation>-100)
-            gs.botArrows.get(gs.botArrows.size-1).rotation-=180;
-        //Gdx.app.log("rotation :",gs.botArrows.get(gs.botArrows.size-1).rotation+"");
+        float y1=game.height / screenFractionAbove0;
+        float error=MathUtils.random(accuracy)*(game.width / (screenFractionCharWidth*5));
+        float x2=0;
+        if(MathUtils.random(2)==1)
+            x2=game.gs.playerChar.xPosition+ error;
+        else
+            x2=game.gs.playerChar.xPosition- error;
+        Gdx.app.log("Aim difference:",game.gs.playerChar.xPosition+" vs. "+x2);
+        float y2=game.height/game.gs.playerChar.screenFractionAbove0;
+        game.gs.botArrows.get(game.gs.botArrows.size-1).rotation=(float)Math.toDegrees(Math.atan((y2 - y1) / (x2-x1)))-90;
+        if(game.gs.botArrows.get(game.gs.botArrows.size-1).rotation>-100)
+            game.gs.botArrows.get(game.gs.botArrows.size-1).rotation-=180;
+        //Gdx.app.log("rotation :",game.gs.botArrows.get(game.gs.botArrows.size-1).rotation+"");
     }
     public void moveTo(int x){
         float update= walkSpeed/botPlayerWalkspeedRatio;
@@ -233,7 +243,7 @@ public class Bot {
                 //do nothing
             }
             xPosition+=update;
-            gs.botArrows.get(gs.botArrows.size-1).xPosition=(int)((gs.bot.xPosition)+(((float)50/88)*(gs.game.width/gs.bot.screenFractionCharWidth)));
+            game.gs.botArrows.get(game.gs.botArrows.size-1).xPosition=(int)((game.gs.bot.xPosition)+(((float)50/88)*(game.width/game.gs.bot.screenFractionCharWidth)));
         }
     }
     public boolean notReached(float update,int x){
