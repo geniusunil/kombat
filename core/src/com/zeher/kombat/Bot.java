@@ -32,9 +32,10 @@ public class Bot {
     public int arrowSpeed;
     public int accuracy; //lesser the more accurate
     public int noOfArrowsFired;
+    public boolean flag;
     public Bot(Kombat game){
         this.game=game;
-        lives=5;
+        //lives=5;
         this.batch=game.batch;
         character = new Texture("player.png");
         xPosition=game.width/2;
@@ -56,8 +57,9 @@ public class Bot {
             public void run() {
                 try {
                     long lastArrowShot=System.currentTimeMillis();
-                    while(true) {
-                        //Gdx.app.log("thread to chal:","raha h yar");
+                    flag=true;
+                    while(flag) {
+                        Gdx.app.log("thread to chal:","raha h yar");
                         if (isSafe()) {
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
@@ -82,6 +84,7 @@ public class Bot {
                         Thread.sleep(100);
 
                     }
+                    work.join();
                 }
                 catch (InterruptedException e){
                     //do nothing

@@ -98,13 +98,13 @@ public class GameScreen implements Screen{
             game.font.draw(batch,"bot : "+bot.lives+" you : "+playerChar.lives,0,600);
         else {
 
-                bot.work.interrupt();
+                bot.flag=false;
 
             /*catch ( e){
 
             }*/
             game.setScreen(new GameOverScreen(game));
-            this.dispose();
+            game.gs.dispose();
         }
         game.gs.arrow.render();
         playerChar.render();
@@ -201,12 +201,14 @@ public class GameScreen implements Screen{
         bot.walkSpeed=params[1]+1;
         bot.arrowSpeed=10/(params[2]+1);
         bot.accuracy=10/(params[3]+1);
+        bot.lives=curLevel;
 
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
         game.gs.playerChar.arrow_interval=bot.arrow_interval;
         game.gs.playerChar.walkSpeed=params[1]+1;
         game.gs.playerChar.arrowSpeed=10/(params[2]+1);
+        game.gs.playerChar.lives=curLevel;
 
         Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
         Gdx.app.log("params",Arrays.toString(params));

@@ -21,7 +21,7 @@ public class PlayerChar {
     public int arrowSpeed;
     public PlayerChar(GameScreen gs){
         this.gs=gs;
-        lives=5;
+        //lives=5;
         this.batch=gs.batch;
         character = new Texture("player.png");
         xPosition=gs.game.width/2;

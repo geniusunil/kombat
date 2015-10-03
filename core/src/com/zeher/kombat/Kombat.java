@@ -2,7 +2,8 @@ package com.zeher.kombat;
 /*
     To DO
     1. bot won, my score goes to negative
-    next 2. levels
+    2. levels
+    next 3. push
     4. graphics
     5. Sound
     6. take GS input via multiplexing real buttons
