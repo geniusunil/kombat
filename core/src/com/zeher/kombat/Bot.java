@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.zeher.kombat.Screens.GameScreen;
 
 
 
@@ -33,6 +32,7 @@ public class Bot {
     public int accuracy; //lesser the more accurate
     public int noOfArrowsFired;
     public boolean flag;
+    public int dodgeLevel=1;
     public Bot(Kombat game){
         this.game=game;
         //lives=5;
@@ -59,7 +59,7 @@ public class Bot {
                     long lastArrowShot=System.currentTimeMillis();
                     flag=true;
                     while(flag) {
-                        Gdx.app.log("thread to chal:","raha h yar");
+                        //Gdx.app.log("thread to chal:","raha h yar");
                         if (isSafe()) {
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
@@ -70,7 +70,8 @@ public class Bot {
                                     Gdx.app.log("arrow interval",arrow_interval+"");
                                     aim();
                                     game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
-                                    noOfArrowsFired++;
+                                    game.gs.bot.noOfArrowsFired++;
+                                    Gdx.app.log("noofarrowsfired: ",game.gs.bot.noOfArrowsFired+"");
                                     game.gs.initMglNewBotArrow();
                                     lastArrowShot=System.currentTimeMillis();
                                 }
@@ -81,7 +82,7 @@ public class Bot {
                         else{
                             dodge();
                         }
-                        Thread.sleep(100);
+                        Thread.sleep(arrow_interval/2);
 
                     }
                     work.join();
@@ -102,7 +103,7 @@ public class Bot {
         boolean isSafe=true;
         if(game.gs.arrows.size>0) {
             Arrow arrowtoDodge = game.gs.arrows.get(i);
-            while (arrowtoDodge.yPosition > game.height/4) {
+            while (arrowtoDodge.yPosition > game.height/game.gs.bot.dodgeLevel) {
                 float expectedXAtBotOrigin = ((game.height / screenFractionAbove0) - arrowtoDodge.c) / arrowtoDodge.m;
                 float expectedXAtBotEnd = ((game.height / screenFractionAbove0) + character.getHeight() - arrowtoDodge.c) / arrowtoDodge.m;
                 if(expectedXAtBotEnd<expectedXAtBotOrigin){

@@ -201,16 +201,17 @@ public class GameScreen implements Screen{
         bot.walkSpeed=params[1]+1;
         bot.arrowSpeed=10/(params[2]+1);
         bot.accuracy=10/(params[3]+1);
-        bot.lives=curLevel;
-
+        bot.lives=curLevel+1;
+        bot.dodgeLevel=params[4]+1;
+        Gdx.app.log("dodge Level: ",bot.dodgeLevel+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
         game.gs.playerChar.arrow_interval=bot.arrow_interval;
         game.gs.playerChar.walkSpeed=params[1]+1;
         game.gs.playerChar.arrowSpeed=10/(params[2]+1);
-        game.gs.playerChar.lives=curLevel;
+        game.gs.playerChar.lives=curLevel+1;
 
-        Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
+        //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
         Gdx.app.log("params",Arrays.toString(params));
     }
 }

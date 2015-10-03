@@ -85,7 +85,9 @@ public class BotArrow {
                     while(true) {
                         thisArrow.yPosition--;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
+
                         Thread.sleep(game.gs.bot.arrowSpeed);
+
                         if(arrowHitPlayer(thisArrow)){
                             thisArrow.dispose();
                             try {
