@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.zeher.kombat.Kombat;
+import com.zeher.kombat.LessButton;
 
 /**
  * Created by zucky on 9/20/2015.
@@ -29,25 +30,25 @@ public class LevelChooser implements Screen {
     Stage stage;
     Table table;
     public static int curLevel;
-    Label level;
+    public Label level;
     Texture texture;
     TextureRegion upRegion;
     TextureRegion downRegion;
     BitmapFont buttonFont;
     TextButton.TextButtonStyle style;
-    TextButton less;
+    LessButton less;
     Skin skin;
     TextButton more;
     TextButton back;
-    public static boolean levelFlag;
+    public boolean lowerFlag;
     public LevelChooser(final Kombat game){
+        lowerFlag=false;
         this.game=game;
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
+
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
         table.setDebug(true); // This is optional, but enables debug lines for tables.
         texture=new Texture(Gdx.files.internal("controls.png"));
         upRegion = new TextureRegion(texture,64,64);
@@ -58,8 +59,7 @@ public class LevelChooser implements Screen {
         style.up = new TextureRegionDrawable(upRegion);
         style.down = new TextureRegionDrawable(downRegion);
         style.font = buttonFont;
-        less = new TextButton("lower", style);
-        table.add(less).expand().fill();
+
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         level=new Label(""+curLevel,skin);
@@ -75,11 +75,11 @@ public class LevelChooser implements Screen {
 
 
         //add listeners to widgets
-        less.addListener(new ChangeListener() {
+        /*less.addListener(new ChangeListener() {
 
-           /* boolean touchdown=true;*/
+           *//* boolean touchdown=true;*//*
 
-            /*@Override
+            *//*@Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
                 touchdown=false;
@@ -87,13 +87,13 @@ public class LevelChooser implements Screen {
                 Gdx.app.log("touchup in levelchooser: ","occurred");
                 //do your stuff
                 //it will work when finger is released..
-            }*/
-           /* @Override
+            }*//*
+           *//* @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                   int pointer, int button) {
                 Gdx.app.log("touchdown: ","hai");
                 //touchdown=true;
-                *//*while(touchdown){
+                *//**//*while(touchdown){
                     Gdx.app.log("level less pressed",less.isPressed()+"");
                     curLevel--;
                     Gdx.app.log("curLevel: ",curLevel+"");
@@ -102,28 +102,29 @@ public class LevelChooser implements Screen {
                         Thread.sleep(1000);
                     }catch (Exception e){
 
-                    }*//*
+                    }*//**//*
                 return true;
-                }*/
+                }*//*
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //while (less.isPressed()) {
 //                    Gdx.app.log("ispressed ", "yes");
                     curLevel--;
                     level.setText("" + curLevel);
-                    /*Gdx.app.log("curLevel: ", curLevel + "");
+                    *//*Gdx.app.log("curLevel: ", curLevel + "");
                     try {
                         Thread.sleep(1000);
                     } catch (Exception e) {
 
-                    }*/
+                    }*//*
                 //}
             }
 
 
 
 
-        });
+        });*/
+
         more.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -144,7 +145,22 @@ public class LevelChooser implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        less = new LessButton("lower", style,game);
+        table.add(less).expand().fill();
+        less.addListener(new ActorGestureListener() {
+            public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                lowerFlag = true;
+                Gdx.app.log("occured: ","touchDown on less");
 
+            }
+
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                lowerFlag = false;
+                Gdx.app.log("occured: ","touchUp on less");
+            }
+        });
     }
 
     @Override

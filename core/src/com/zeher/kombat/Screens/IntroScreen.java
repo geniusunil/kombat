@@ -21,7 +21,7 @@ public class IntroScreen implements Screen{
     Kombat game;
     long showTime; //time when the screen showed up
     Texture introbg;
-
+    public LevelChooser lc;
     //for the button
     Stage stage;
     Table table;
@@ -33,7 +33,7 @@ public class IntroScreen implements Screen{
     public void show() {
         showTime=System.currentTimeMillis();
         introbg=new Texture("introbg.jpg");
-
+        lc=new LevelChooser(game);
         //for the button
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -61,7 +61,7 @@ public class IntroScreen implements Screen{
         levels.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new LevelChooser(game));
+                game.setScreen(lc);
             }
         });
         settings.addListener(new ChangeListener() {
