@@ -103,7 +103,7 @@ public class Bot {
         boolean isSafe=true;
         if(game.gs.arrows.size>0) {
             Arrow arrowtoDodge = game.gs.arrows.get(i);
-            while (arrowtoDodge.yPosition > game.height/game.gs.bot.dodgeLevel) {
+            while (arrowtoDodge.yPosition > game.height/4) {
                 float expectedXAtBotOrigin = ((game.height / screenFractionAbove0) - arrowtoDodge.c) / arrowtoDodge.m;
                 float expectedXAtBotEnd = ((game.height / screenFractionAbove0) + character.getHeight() - arrowtoDodge.c) / arrowtoDodge.m;
                 if(expectedXAtBotEnd<expectedXAtBotOrigin){
