@@ -1,5 +1,6 @@
 package com.zeher.kombat;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zeher.kombat.Screens.LevelChooser;
@@ -9,6 +10,7 @@ import com.zeher.kombat.Screens.LevelChooser;
  */
 public class LessButton extends TextButton {
     LevelChooser lc;
+    float wait;
     public LessButton(String text, TextButton.TextButtonStyle skin,Kombat game) {
         super(text, skin);
         this.lc=game.introScreen.lc;
@@ -16,9 +18,12 @@ public class LessButton extends TextButton {
     }
     @Override
     public void act(float delta){
-        if(lc.lowerFlag ) {
+       // Gdx.app.log("delta: ",""+delta);
+        wait+=delta;
+        if(lc.lowerFlag && lc.curLevel>0 && wait>delta*8) {
             lc.curLevel--;
             lc.level.setText("" + lc.curLevel);
+            wait=0f;
         }
 
     }

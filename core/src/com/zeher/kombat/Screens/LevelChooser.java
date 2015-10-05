@@ -45,7 +45,6 @@ public class LevelChooser implements Screen {
         lowerFlag=false;
         this.game=game;
         stage = new Stage(new ScreenViewport());
-
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -152,6 +151,7 @@ public class LevelChooser implements Screen {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 lowerFlag = true;
                 Gdx.app.log("occured: ","touchDown on less");
+
 
             }
 
