@@ -6,11 +6,11 @@ import com.zeher.kombat.Screens.LevelChooser;
 /**
  * Created by zucky on 10/4/2015.
  */
-public class LessButton extends TextButton {
+public class MoreButton extends TextButton {
     LevelChooser lc;
     float wait;
     public boolean touchFlag=false;
-    public LessButton(String text, TextButton.TextButtonStyle skin,Kombat game) {
+    public MoreButton(String text, TextButtonStyle skin, Kombat game) {
         super(text, skin);
         this.lc=game.introScreen.lc;
 
@@ -19,8 +19,8 @@ public class LessButton extends TextButton {
     public void act(float delta){
        // Gdx.app.log("delta: ",""+delta);
         wait+=delta;
-        if(touchFlag && lc.curLevel>0 && wait>delta*8) {
-            lc.curLevel--;
+        if(touchFlag && lc.curLevel<100 && wait>delta*8) {
+            lc.curLevel++;
             lc.level.setText("" + lc.curLevel);
             wait=0f;
         }
