@@ -2,7 +2,7 @@ package com.zeher.kombat;
 /*
     To DO
     2. levels, testing
-    next 3.
+    next 3. crash at GOScreen
     4. graphics
     5. Sound
     6. take GS input via multiplexing real buttons

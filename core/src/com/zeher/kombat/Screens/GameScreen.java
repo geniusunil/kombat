@@ -197,7 +197,7 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.arrow_interval=10000/(params[0]+1);
+        bot.maxArrows=2*(params[0]+1);
         bot.walkSpeed=params[1]+1;
         bot.arrowSpeed=10/(params[2]+1);
         bot.accuracy=10/(params[3]+1);

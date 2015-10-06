@@ -33,6 +33,7 @@ public class Bot {
     public int noOfArrowsFired;
     public boolean flag;
     public int dodgeLevel=1;
+    public int maxArrows;
     public Bot(Kombat game){
         this.game=game;
         //lives=5;
@@ -60,13 +61,14 @@ public class Bot {
                     flag=true;
                     while(flag) {
                         //Gdx.app.log("thread to chal:","raha h yar");
-                        if (isSafe()) {
+                        if (!isSafe()) {
+                            dodge();
+                        }
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
-                            if (game.gs.botArrows.size > 0 ) {
+                        if (game.gs.botArrows.size > 0 && game.gs.botArrows.size<=game.gs.bot.maxArrows) {
 
                                 //Gdx.app.log("time :",System.currentTimeMillis()-lastArrowShot+"");
-                                if(System.currentTimeMillis()-lastArrowShot>arrow_interval) {
                                     Gdx.app.log("arrow interval",arrow_interval+"");
                                     aim();
                                     game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
@@ -74,15 +76,12 @@ public class Bot {
                                     Gdx.app.log("noofarrowsfired: ",game.gs.bot.noOfArrowsFired+"");
                                     game.gs.initMglNewBotArrow();
                                     lastArrowShot=System.currentTimeMillis();
-                                }
 
 
-                            }
+
                         }
-                        else{
-                            dodge();
-                        }
-                        Thread.sleep(100);
+
+                        Thread.sleep(500);
 
                     }
                     work.join();
