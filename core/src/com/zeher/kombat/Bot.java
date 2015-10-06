@@ -82,7 +82,7 @@ public class Bot {
                         else{
                             dodge();
                         }
-                        Thread.sleep(arrow_interval/2);
+                        Thread.sleep(100);
 
                     }
                     work.join();

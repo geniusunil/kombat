@@ -206,7 +206,7 @@ public class GameScreen implements Screen{
         Gdx.app.log("dodge Level: ",bot.dodgeLevel+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.arrow_interval=bot.arrow_interval;
+        game.gs.playerChar.maxArrows=(params[0]+1)*2;
         game.gs.playerChar.walkSpeed=params[1]+1;
         game.gs.playerChar.arrowSpeed=10/(params[2]+1);
         game.gs.playerChar.lives=curLevel+1;

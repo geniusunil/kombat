@@ -72,7 +72,7 @@ public class Arrow {
             }catch (ArrayIndexOutOfBoundsException e) {
             }
             //Gdx.app.log("game.gs.arrow.arrow_interval",game.gs.arrow.arrow_interval+"");
-            if(i==game.gs.arrows.size-1 && System.currentTimeMillis()-game.mgl.lastArrowHit>game.gs.playerChar.arrow_interval) {
+            if(i==game.gs.arrows.size-1 && game.gs.arrows.size<=game.gs.playerChar.maxArrows) {
                 batch.draw(arrow.arrowImg, arrow.xPosition, arrow.yPosition, arrow.xOrigin, arrow.yOrigin, arrow.arrowWidth, arrow.arrowHeight, arrow.xScale, arrow.yScale, arrow.rotation, 0, 0, 185, 1762, false, false);
                 break;
             }

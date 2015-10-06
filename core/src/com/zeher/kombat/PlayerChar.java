@@ -19,6 +19,7 @@ public class PlayerChar {
     public int arrow_interval;
     //public int arrow_interval_level;
     public int arrowSpeed;
+    public int maxArrows=2;
     public PlayerChar(GameScreen gs){
         this.gs=gs;
         //lives=5;

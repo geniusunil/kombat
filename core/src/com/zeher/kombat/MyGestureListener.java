@@ -92,7 +92,7 @@ public class MyGestureListener implements InputProcessor {
         //Gdx.app.log("from mgl: game.gs.arrow.arrow_interval = ",game.gs.playerChar.arrow_interval+"");
         if(lastArrowHit==0 && game.getScreen()==gs)                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
-        if(System.currentTimeMillis()-lastArrowHit>game.gs.playerChar.arrow_interval && !buttonsPressed && game.getScreen()==gs) {
+        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && !buttonsPressed && game.getScreen()==gs) {
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).fire();
                 lastArrowHit=System.currentTimeMillis();
