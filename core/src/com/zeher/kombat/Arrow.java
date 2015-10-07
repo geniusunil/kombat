@@ -157,6 +157,7 @@ public class Arrow {
         return hit;
     }
     public void dispose(){
+
         //arrowImg.dispose();   //causing black texture, fix this later
     }
 }

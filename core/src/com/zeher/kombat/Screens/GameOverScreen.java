@@ -46,7 +46,7 @@ public class GameOverScreen implements Screen{
         else if(game.gs.bot.lives <= game.gs.playerChar.lives){
             game.font.drawWrapped(batch,"you won! "+playerLives+"-"+botLives+ ", Touch run again, Number of Arrows fired :" + game.gs.bot.noOfArrowsFired,0,700,720);
         }
-        if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>500)
+        if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>2000)
             game.create();
         batch.end();
     }

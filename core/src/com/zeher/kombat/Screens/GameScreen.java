@@ -43,6 +43,7 @@ public class GameScreen implements Screen{
     public Array<Arrow> arrows;
     public Array<BotArrow> botArrows;
     public Texture background;
+    public GameOverScreen gos;
     int numOfParameters=7;  //paramters changing in diff. levels
     int params[]=new int[7];
     public GameScreen(Kombat game){
@@ -72,7 +73,7 @@ public class GameScreen implements Screen{
         BotArrow.arrowImg=new Texture("arrow.png");
         BotArrow.bow=new Texture("bow.png");
         game.font.setScale(4);
-
+        gos=new GameOverScreen(game);
 
         Gdx.app.log("in gs show","yo");
     }
@@ -103,7 +104,8 @@ public class GameScreen implements Screen{
             /*catch ( e){
 
             }*/
-            game.setScreen(new GameOverScreen(game));
+
+            game.setScreen(gos);
             game.gs.dispose();
         }
         game.gs.arrow.render();
@@ -114,7 +116,7 @@ public class GameScreen implements Screen{
         batch.setColor(1,1,1,0.5f);
         controls.render();
         batch.setColor(1,1,1,1);
-        game.font.draw(batch,""+game.gs.arrows.size,250,250);
+        game.font.draw(batch,""+game.gs.botArrows.size,250,250);
         batch.end();
         if(Gdx.input.isTouched()){
             game.mgl.isTouched(Gdx.input.getX(), Gdx.input.getY());
@@ -135,18 +137,28 @@ public class GameScreen implements Screen{
 
     }
     public void dispose(){
+        Gdx.app.log("138 tk","thik tha");
         for(Arrow arr : game.gs.arrows){
             arr.dispose();
         }
+        Gdx.app.log("142 tk","thik tha");
         while(arrows.size>0){
             arrows.removeIndex(0);
         }
+        Gdx.app.log("146 tk","thik tha");
+        /*int i=0;
+        Gdx.app.log(""+game.gs.botArrows.size,"thik tha");
         for(BotArrow barr : game.gs.botArrows){
+            Gdx.app.log(""+ ++i,"thik tha");
             barr.dispose();
-        }
+        }*/
+        Gdx.app.log("150 tk","thik tha");
         while(botArrows.size>0){
+            //BotArrow barr=botArrows.get(0);
             botArrows.removeIndex(0);
+            //barr.dispose();
         }
+        Gdx.app.log("154 tk","thik tha");
        /* map.dispose();
         allBricks.dispose();*/
         playerChar.dispose();
@@ -154,7 +166,7 @@ public class GameScreen implements Screen{
         //Gdx.app.log("gs dispose()","called");
         bot.dispose();
 
-
+        Gdx.app.log("162 tk", "thik tha");
     }
     public void keepChangingBrickTypes(){
         Thread thread = new Thread(new Runnable() {

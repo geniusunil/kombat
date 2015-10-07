@@ -32,7 +32,7 @@ public class BotArrow {
     float dy,dx;
     // following is for the fire()
     Kombat game;
-
+    public Thread fireThread;
     static boolean arrowWithinScreen;
     public BotArrow(Kombat game){
         this.game=game;
@@ -75,7 +75,7 @@ public class BotArrow {
         thisArrow.dy=(float)Math.abs(thisArrow.arrowHeight*Math.cos(Math.toRadians(thisArrow.rotation)));
         thisArrow.dx=dy/m;
 
-        Thread thread = new Thread(new Runnable() {
+        fireThread = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -85,28 +85,32 @@ public class BotArrow {
                     while(true) {
                         thisArrow.yPosition--;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
-
-                        Thread.sleep(game.gs.bot.arrowSpeed);
+                        if(game.getScreen()==game.gs.gos){
+                            thisArrow.dispose();
+                        }
+                        fireThread.sleep(game.gs.bot.arrowSpeed);
 
                         if(arrowHitPlayer(thisArrow)){
-                            thisArrow.dispose();
                             try {
                                 game.gs.botArrows.removeIndex(0);
                             }
                             catch (IndexOutOfBoundsException e) {
                             }
-                            game.gs.playerChar.lives--;
 
+                            game.gs.playerChar.lives--;
+                            thisArrow.dispose();
                             //Gdx.app.log("arrow remove : ","yes");
                             break;
                         }
                         else if(thisArrow.xPosition<0 || thisArrow.xPosition>720 || thisArrow.yPosition>1280 || thisArrow.yPosition<0){
-                            thisArrow.dispose();
+
                             try {
                                 game.gs.botArrows.removeIndex(0);
                             }
                             catch (IndexOutOfBoundsException e) {
                             }
+
+                            thisArrow.dispose();
                             //Gdx.app.log("arrow remove : ","yes");
                             break;
                         }
@@ -121,7 +125,7 @@ public class BotArrow {
 
             }
         });
-        thread.start();
+        fireThread.start();
     }
     public boolean arrowHitPlayer(BotArrow botArrow){
         boolean hit = false;
@@ -133,6 +137,12 @@ public class BotArrow {
         return hit;
     }
     public void dispose(){
+        try{
+            fireThread.join();
+        }catch (InterruptedException e){
+            //do nothing
+        }
+
 
         //arrowImg.dispose();
     }
