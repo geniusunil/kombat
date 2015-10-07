@@ -138,9 +138,9 @@ public class GameScreen implements Screen{
     }
     public void dispose(){
         Gdx.app.log("138 tk","thik tha");
-        for(Arrow arr : game.gs.arrows){
+        /*for(Arrow arr : game.gs.arrows){
             arr.dispose();
-        }
+        }*/
         Gdx.app.log("142 tk","thik tha");
         while(arrows.size>0){
             arrows.removeIndex(0);

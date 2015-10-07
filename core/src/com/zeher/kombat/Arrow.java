@@ -32,7 +32,7 @@ public class Arrow {
     float arrowWidthFraction=27;
     float dy,dx;
     float fractionOfCharacterArrowHeight=0.5f;
-
+    public Thread fireThread;
 
     // following is for the fire()
 
@@ -102,7 +102,7 @@ public class Arrow {
         Gdx.app.log("m :",""+m);*/
         thisArrow.dy=(float)Math.abs(thisArrow.arrowHeight * Math.cos(Math.toRadians(thisArrow.rotation)));
         thisArrow.dx=dy/m;
-        Thread thread = new Thread(new Runnable() {
+        fireThread = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -112,24 +112,29 @@ public class Arrow {
                     while(true) {
                         thisArrow.yPosition++;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
+                        if(game.getScreen()==game.gs.gos){
+                            thisArrow.dispose();
+                        }
                         Thread.sleep(game.gs.playerChar.arrowSpeed);
                         if(arrowHitBot(thisArrow)){
-                            thisArrow.dispose();
                             try {
                                 game.gs.arrows.removeIndex(0);
                             }catch (IndexOutOfBoundsException e){
 
                             }
                             game.gs.bot.lives--;
+
+                            thisArrow.dispose();
                             //Gdx.app.log("arrow remove : ","yes");
                             break;
                         }
                         else if(thisArrow.xPosition<0 || thisArrow.xPosition>720 || thisArrow.yPosition>1280 || thisArrow.yPosition<0){
-                            thisArrow.dispose();
+
                             try {
                                 game.gs.arrows.removeIndex(0);
                             }catch(IndexOutOfBoundsException e){
                             }
+                            thisArrow.dispose();
                             //Gdx.app.log("arrow remove : ","yes");
 
                             break;
@@ -145,7 +150,7 @@ public class Arrow {
 
             }
         });
-        thread.start();
+        fireThread.start();
     }
     public boolean arrowHitBot(Arrow arrow){
         boolean hit = false;
@@ -157,7 +162,11 @@ public class Arrow {
         return hit;
     }
     public void dispose(){
-
+        try{
+            fireThread.join();
+        }catch (InterruptedException e){
+            //do nothing
+        }
         //arrowImg.dispose();   //causing black texture, fix this later
     }
 }
