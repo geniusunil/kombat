@@ -211,7 +211,7 @@ public class GameScreen implements Screen{
 
         bot.maxArrows=2*(params[0]+1);
         bot.walkSpeed=params[1]+1;
-        bot.arrowSpeed=10/(params[2]+1);
+        bot.arrowSpeed=10/(params[2]+1)+1;
         bot.accuracy=10/(params[3]+1);
         bot.lives=curLevel+1;
         bot.dodgeLevel=params[4]+1;
@@ -220,7 +220,7 @@ public class GameScreen implements Screen{
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
         game.gs.playerChar.maxArrows=(params[0]+1)*2;
         game.gs.playerChar.walkSpeed=params[1]+1;
-        game.gs.playerChar.arrowSpeed=10/(params[2]+1);
+        game.gs.playerChar.arrowSpeed=10/(params[2]+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=curLevel+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
