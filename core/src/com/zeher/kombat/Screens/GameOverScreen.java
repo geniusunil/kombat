@@ -24,6 +24,7 @@ public class GameOverScreen implements Screen{
     }
     public void show(){
         showTime=System.currentTimeMillis();
+        game.gs.bot.dispose();
     }
     public void hide(){
 

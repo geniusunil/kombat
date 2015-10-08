@@ -164,7 +164,7 @@ public class GameScreen implements Screen{
         playerChar.dispose();
         controls.dispose();
         //Gdx.app.log("gs dispose()","called");
-        bot.dispose();
+
 
         Gdx.app.log("162 tk", "thik tha");
     }
