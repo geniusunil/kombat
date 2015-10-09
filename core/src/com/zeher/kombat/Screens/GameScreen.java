@@ -101,6 +101,7 @@ public class GameScreen implements Screen{
         batch.setProjectionMatrix(game.camera.combined);
         batch.begin();
         //maprenderer.render();
+
         batch.draw(background, 0, 0);
         if(bot.lives>0 && playerChar.lives>0)
             game.font.draw(batch,"bot : "+bot.lives+" you : "+playerChar.lives,0,600);
@@ -121,11 +122,12 @@ public class GameScreen implements Screen{
         game.gs.botArrow.render();
 
         batch.setColor(1,1,1,0.5f);
-        controls.render(delta);
-        batch.setColor(1,1,1,1);
-        game.font.draw(batch,""+game.gs.botArrows.size,250,250);
-        batch.end();
 
+        batch.setColor(1,1,1, 1);
+        game.font.draw(batch, "" + game.gs.botArrows.size,250,250);
+
+        batch.end();
+        controls.render(delta);
 
     }
     public void hide(){

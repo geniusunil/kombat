@@ -60,10 +60,11 @@ public class BotArrow {
         }
         catch (IndexOutOfBoundsException e) {
         }
-
-        for(BotArrow botArrow : game.gs.botArrows){
-                Gdx.app.log("botarrow render : ",botArrow.xPosition+" " );
+        //batch.draw(bow,100,100);
+        for(BotArrow botArrow : game.gs.botArrows) {
+            Gdx.app.log("botarrow render : ", botArrow.xPosition+" "+botArrow.yPosition+" " );
             batch.draw(arrowImg, botArrow.xPosition, botArrow.yPosition, botArrow.xOrigin, botArrow.yOrigin, botArrow.arrowWidth, botArrow.arrowHeight, botArrow.xScale, botArrow.yScale, botArrow.rotation, 0, 0, 185,1762,false,false);
+
         }
     }
 

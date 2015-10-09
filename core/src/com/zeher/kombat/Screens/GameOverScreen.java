@@ -42,12 +42,14 @@ public class GameOverScreen implements Screen{
         batch.begin();
         game.batch.draw(game.introScreen.introbg,0,0);
         if(game.gs.bot.lives > game.gs.playerChar.lives){
+
            game.font.drawWrapped(batch, "bot won! " + botLives + "-" + playerLives + ", Touch run again, Number of Arrows fired :" + game.gs.bot.noOfArrowsFired , 0, 700,720);
         }
         else if(game.gs.bot.lives <= game.gs.playerChar.lives){
+            game.introScreen.lc.curLevel++;
             game.font.drawWrapped(batch,"you won! "+playerLives+"-"+botLives+ ", Touch run again, Number of Arrows fired :" + game.gs.bot.noOfArrowsFired,0,700,720);
         }
-        if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>2000)
+        if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>1000)
             game.create();
         batch.end();
     }
