@@ -38,6 +38,9 @@ public class Controls {
     TextureRegion upRegion;
     TextureRegion downRegion;
     BitmapFont buttonFont;
+    public int controlsPointer1=-1;
+
+    public int controlsPointer2=-1;
     public Controls (Kombat game) {
         this.game=game;
         this.batch=game.batch;
@@ -78,22 +81,26 @@ public class Controls {
         leftB.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 leftB.touchFlag = true;
+                controlsPointer1=pointer;
                 // Gdx.app.log("occured: ", "touchDown on less");
             }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 leftB.touchFlag = false;
+                controlsPointer1=-1;
                 // Gdx.app.log("occured: ", "touchUp on less");
             }
         });
         rightB.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 rightB.touchFlag = true;
+                controlsPointer2 = pointer;
                 // Gdx.app.log("occured: ", "touchDown on less");
             }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 rightB.touchFlag = false;
+                controlsPointer2=-1;
                 // Gdx.app.log("occured: ", "touchUp on less");
             }
         });

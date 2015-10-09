@@ -219,7 +219,7 @@ public class GameScreen implements Screen{
         bot.accuracy=10/(params[3]+1);
         bot.lives=curLevel+1;
         bot.dodgeLevel=params[4]+1;
-        Gdx.app.log("dodge Level: ",bot.dodgeLevel+"");
+        Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
         game.gs.playerChar.maxArrows=(params[0]+1)*2;

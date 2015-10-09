@@ -18,7 +18,7 @@ public class RightButton extends TextButton {
     public void act(float delta){
        // Gdx.app.log("delta: ",""+delta);
         wait+=delta;
-        if(touchFlag && game.gs.playerChar.xPosition<game.width && wait>=delta) {
+        if(touchFlag && game.gs.playerChar.xPosition+game.gs.playerChar.character.getWidth()<game.width && wait>=delta) {
             game.gs.playerChar.xPosition+=(game.gs.playerChar.walkSpeed);
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).update(0);

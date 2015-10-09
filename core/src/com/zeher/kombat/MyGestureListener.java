@@ -14,6 +14,7 @@ public class MyGestureListener implements InputProcessor {
     Arrow arrow;
     GameScreen gs;
     int prevScreenX=-1;
+    int touchDragPointer=-1;
     boolean buttonsPressed;
     int whichButPressed;   //0 for left navigation button and 1 for right
     public long lastArrowHit; //time of last arrow hit by user
@@ -58,7 +59,7 @@ public class MyGestureListener implements InputProcessor {
         //Gdx.app.log("from mgl: game.gs.arrow.arrow_interval = ",game.gs.playerChar.arrow_interval+"");
         if(lastArrowHit==0 && game.getScreen()==gs)                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
-        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && !(game.gs.controls.leftB.touchFlag || game.gs.controls.rightB.touchFlag) && game.getScreen()==gs) {
+        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && (pointer==touchDragPointer || (touchDragPointer==-1 && pointer!=game.gs.controls.controlsPointer1 && pointer!=game.gs.controls.controlsPointer2)) && game.getScreen()==gs) {
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).fire();
                 lastArrowHit=System.currentTimeMillis();
@@ -70,26 +71,34 @@ public class MyGestureListener implements InputProcessor {
             //lastArrowHit=System.currentTimeMillis();
 
             game.gs.initMglNewArrow();
+            touchDragPointer=-1;
+            prevScreenX=-1;
         }
-        prevScreenX=-1;
+
+
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         //Gdx.app.log("occurred: ", "touchdrag");
-        if(prevScreenX==-1)
-            prevScreenX=screenX;
-        float deltaX=screenX-prevScreenX;
-        prevScreenX=screenX;
-        //Gdx.app.log("deltaX ", ""+deltaX);
-        //if (screenX * game.xScale > game.gs.controls.controlBounds.getWidth() && screenX * game.xScale < game.width - game.gs.controls.controlBounds.getWidth()) {
+        if(touchDragPointer==-1)
+            touchDragPointer=pointer;
+        if(touchDragPointer!=game.gs.controls.controlsPointer1 && touchDragPointer!=game.gs.controls.controlsPointer2  && pointer==touchDragPointer) {
+            if (prevScreenX == -1)
+                prevScreenX = screenX;
+            float deltaX = screenX - prevScreenX;
+            prevScreenX = screenX;
+            //Gdx.app.log("deltaX ", ""+deltaX);
+            //if (screenX * game.xScale > game.gs.controls.controlBounds.getWidth() && screenX * game.xScale < game.width - game.gs.controls.controlBounds.getWidth()) {
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).update(-(0.25f * deltaX * game.xScale));
             } catch (ArrayIndexOutOfBoundsException e) {
             }
-        //}
-
+            //}
+        }
+        else
+            touchDragPointer=-1;
         return false;
     }
 
