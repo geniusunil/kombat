@@ -1,10 +1,10 @@
 package com.zeher.kombat;
 /*
     To DO
-    1. better dodge and boundaries
+    next 1. better dodge and boundaries
 
     2. levels testing
-    next 3. play buttons
+    3.
     4. graphics
     5. Sound
     6. Arrow should not damage once it has crossed
