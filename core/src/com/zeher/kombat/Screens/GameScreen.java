@@ -1,6 +1,7 @@
 package com.zeher.kombat.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +15,7 @@ import com.zeher.kombat.Controls;
 import com.zeher.kombat.Kombat;
 import com.zeher.kombat.Map;
 import com.zeher.kombat.MapRenderer;
+import com.zeher.kombat.MyGestureListener;
 import com.zeher.kombat.PlayerChar;
 
 import java.util.Arrays;
@@ -46,6 +48,7 @@ public class GameScreen implements Screen{
     public GameOverScreen gos;
     int numOfParameters=7;  //paramters changing in diff. levels
     int params[]=new int[7];
+    public InputMultiplexer gameS;
     public GameScreen(Kombat game){
         this.batch=game.batch;
         this.game=game;
@@ -54,13 +57,17 @@ public class GameScreen implements Screen{
         playerChar = new PlayerChar(this);
         arrows=new Array(); //already done above
         botArrows= new Array();
-        controls = new Controls(this);
     }
 
     public void show(){
 //        mapPNG="maps/map0.png";
         //allBricks=new Texture("allBricks.png");
-        Gdx.input.setInputProcessor(game.mgl); //all gestures will be automatically handled by event listener
+
+        controls = new Controls(game);
+        gameS= new InputMultiplexer();
+        gameS.addProcessor(game.mgl);
+        gameS.addProcessor(controls.stage);
+        Gdx.input.setInputProcessor(gameS); //all gestures will be automatically handled by event listener
         background=new Texture("bg.jpg");
 //        map=new Map(this,mapPNG);
 //        //keepChangingBrickTypes(); //starts a thread which changes the brick-types in every 5 sec.
@@ -114,14 +121,11 @@ public class GameScreen implements Screen{
         game.gs.botArrow.render();
 
         batch.setColor(1,1,1,0.5f);
-        controls.render();
+        controls.render(delta);
         batch.setColor(1,1,1,1);
         game.font.draw(batch,""+game.gs.botArrows.size,250,250);
         batch.end();
-        if(Gdx.input.isTouched()){
-            game.mgl.isTouched(Gdx.input.getX(), Gdx.input.getY());
 
-        }
 
     }
     public void hide(){
@@ -158,7 +162,7 @@ public class GameScreen implements Screen{
             botArrows.removeIndex(0);
             //barr.dispose();
         }
-        Gdx.app.log("154 tk","thik tha");
+        Gdx.app.log("154 tk", "thik tha");
        /* map.dispose();
         allBricks.dispose();*/
         playerChar.dispose();

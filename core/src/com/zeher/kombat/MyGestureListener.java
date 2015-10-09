@@ -23,40 +23,6 @@ public class MyGestureListener implements InputProcessor {
         gs=game.gs;
         //game.gs.initMglNewArrow();
     }
-    public void isTouched (int x, int y)  {
-        /*Gdx.app.log("occurred: ", "touched");
-        */
-        if((x * game.xScale <= game.gs.controls.controlBounds.getWidth() && y * game.yScale >= game.height - game.gs.controls.controlBounds.getHeight()-game.gs.controls.heightOfButtons )) {
-            whichButPressed=0;
-            buttonsPressed = true;
-
-        }
-        else if(x * game.xScale >= game.width - game.gs.controls.controlBounds.getWidth() && y * game.yScale >= game.height - game.gs.controls.controlBounds.getHeight()-game.gs.controls.heightOfButtons ){
-            whichButPressed=1;
-            buttonsPressed = true;
-
-        }
-        else{
-            buttonsPressed=false;
-        }
-        //Gdx.app.log("bp? ",buttonsPressed+"");
-        //Gdx.app.log("touched and checked", x * game.xScale + " " + (game.width-game.gs.controls.controlBounds.getWidth()) + " " + y * game.yScale + " " + (game.height - game.gs.controls.controlBounds.getHeight()));
-        if (buttonsPressed && whichButPressed==0 && game.gs.playerChar.xPosition >= 0) {
-            game.gs.playerChar.xPosition -= game.gs.playerChar.walkSpeed;
-            try {
-                game.gs.arrows.get(game.gs.arrows.size - 1).update(0);
-            } catch (ArrayIndexOutOfBoundsException e) {
-
-            }
-
-        } else if (buttonsPressed && whichButPressed==1 && game.gs.playerChar.xPosition < game.width - game.width / game.gs.playerChar.screenFractionCharWidth) {
-            game.gs.playerChar.xPosition += game.gs.playerChar.walkSpeed;
-            try {
-                game.gs.arrows.get(game.gs.arrows.size - 1).update(0);
-            } catch (ArrayIndexOutOfBoundsException e) {
-            }
-        }
-    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -92,7 +58,7 @@ public class MyGestureListener implements InputProcessor {
         //Gdx.app.log("from mgl: game.gs.arrow.arrow_interval = ",game.gs.playerChar.arrow_interval+"");
         if(lastArrowHit==0 && game.getScreen()==gs)                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
-        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && !buttonsPressed && game.getScreen()==gs) {
+        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && !(game.gs.controls.leftB.touchFlag || game.gs.controls.rightB.touchFlag) && game.getScreen()==gs) {
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).fire();
                 lastArrowHit=System.currentTimeMillis();

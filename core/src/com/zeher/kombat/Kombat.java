@@ -1,12 +1,13 @@
 package com.zeher.kombat;
 /*
     To DO
+    1. better dodge and boundaries
+
     2. levels testing
-    next 3.
+    next 3. play buttons
     4. graphics
     5. Sound
-    6. take GS input via multiplexing real buttons
-
+    6. Arrow should not damage once it has crossed
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
