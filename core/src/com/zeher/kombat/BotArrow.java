@@ -33,7 +33,7 @@ public class BotArrow {
     // following is for the fire()
     Kombat game;
     public Thread fireThread;
-    static boolean arrowWithinScreen;
+    public boolean arrowWithinScreen;
     public BotArrow(Kombat game){
         this.game=game;
         this.batch=game.batch;
@@ -106,9 +106,18 @@ public class BotArrow {
                             break;
                         }
                         else if(thisArrow.xPosition<0 || thisArrow.xPosition>720 || thisArrow.yPosition>1280 || thisArrow.yPosition<0){
-
+                            thisArrow.arrowWithinScreen=false;
                             try {
-                                game.gs.botArrows.removeIndex(0);
+                                boolean notDone=true;
+                                int i=0;
+                                while(notDone){
+                                    if(!game.gs.botArrows.get(i).arrowWithinScreen){
+                                        game.gs.botArrows.removeIndex(i);
+                                        notDone=false;
+                                    }
+                                    else
+                                        i++;
+                                }
                             }
                             catch (IndexOutOfBoundsException e) {
                             }

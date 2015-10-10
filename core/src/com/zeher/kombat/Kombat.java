@@ -4,7 +4,7 @@ package com.zeher.kombat;
     1.
 
     2. levels testing
-    next 3. arrow disappears if next arrow goes out of screen first
+    next 3. arrow disappears if next arrow hits character first
     4. graphics
     5. Sound
     6.

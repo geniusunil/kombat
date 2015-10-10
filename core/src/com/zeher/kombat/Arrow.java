@@ -39,7 +39,7 @@ public class Arrow {
     float m;
     float c;
 
-    static boolean arrowWithinScreen;
+    public boolean arrowWithinScreen;
     public Arrow(Kombat game){
         this.game=game;
         this.batch = game.batch;
@@ -130,9 +130,19 @@ public class Arrow {
                             break;
                         }
                         else if(thisArrow.xPosition<0 || thisArrow.xPosition>720 || thisArrow.yPosition>1280 || thisArrow.yPosition<0){
+                            thisArrow.arrowWithinScreen=false;
 
                             try {
-                                game.gs.arrows.removeIndex(0);
+                                boolean notDone=true;
+                                int i=0;
+                                while(notDone){
+                                    if(!game.gs.arrows.get(i).arrowWithinScreen){
+                                        game.gs.arrows.removeIndex(i);
+                                        notDone=false;
+                                    }
+                                    else
+                                        i++;
+                                }
                             }catch(IndexOutOfBoundsException e){
                             }
                             thisArrow.dispose();

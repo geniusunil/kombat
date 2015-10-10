@@ -120,11 +120,7 @@ public class GameScreen implements Screen{
         playerChar.render();
         bot.render();
         game.gs.botArrow.render();
-
-        batch.setColor(1,1,1,0.5f);
-
-        batch.setColor(1,1,1, 1);
-        game.font.draw(batch, "" + game.gs.botArrows.size,250,250);
+        game.font.draw(batch, "" + game.gs.arrows.size,250,250);
 
         batch.end();
         controls.render(delta);
