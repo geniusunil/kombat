@@ -62,7 +62,6 @@ public class BotArrow {
         }
         //batch.draw(bow,100,100);
         for(BotArrow botArrow : game.gs.botArrows) {
-            Gdx.app.log("botarrow render : ", botArrow.xPosition+" "+botArrow.yPosition+" " );
             batch.draw(arrowImg, botArrow.xPosition, botArrow.yPosition, botArrow.xOrigin, botArrow.yOrigin, botArrow.arrowWidth, botArrow.arrowHeight, botArrow.xScale, botArrow.yScale, botArrow.rotation, 0, 0, 185,1762,false,false);
 
         }
@@ -134,7 +133,7 @@ public class BotArrow {
     public boolean arrowHitPlayer(BotArrow botArrow){
         boolean hit = false;
 
-        if((botArrow.yPosition-botArrow.dy)< (game.height / game.gs.playerChar.screenFractionAbove0+ game.gs.playerChar.character.getHeight()) && botArrow.xPosition-botArrow.dx >= game.gs.playerChar.xPosition && botArrow.xPosition-botArrow.dx <= (game.gs.playerChar.xPosition + game.gs.playerChar.character.getWidth())) {
+        if((botArrow.yPosition-botArrow.dy)< (game.height / game.gs.playerChar.screenFractionAbove0+ game.gs.playerChar.character.getHeight()) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && botArrow.xPosition-botArrow.dx >= game.gs.playerChar.xPosition && botArrow.xPosition-botArrow.dx <= (game.gs.playerChar.xPosition + game.gs.playerChar.character.getWidth())) {
             hit = true;
         }
         //Gdx.app.log("arrow yPosition :", arrow.yPosition + " bot yPosition :" + game.gs.game.height / game.gs.bot.screenFractionAbove0 + " arrow xPosition " + arrow.xPosition + " bot xposition" + game.gs.bot.xPosition);

@@ -143,36 +143,18 @@ public class GameScreen implements Screen{
 
     }
     public void dispose(){
-        Gdx.app.log("138 tk","thik tha");
-        /*for(Arrow arr : game.gs.arrows){
-            arr.dispose();
-        }*/
-        Gdx.app.log("142 tk","thik tha");
         while(arrows.size>0){
             arrows.removeIndex(0);
         }
-        Gdx.app.log("146 tk","thik tha");
-        /*int i=0;
-        Gdx.app.log(""+game.gs.botArrows.size,"thik tha");
-        for(BotArrow barr : game.gs.botArrows){
-            Gdx.app.log(""+ ++i,"thik tha");
-            barr.dispose();
-        }*/
-        Gdx.app.log("150 tk","thik tha");
         while(botArrows.size>0){
             //BotArrow barr=botArrows.get(0);
             botArrows.removeIndex(0);
             //barr.dispose();
         }
-        Gdx.app.log("154 tk", "thik tha");
        /* map.dispose();
         allBricks.dispose();*/
         playerChar.dispose();
         controls.dispose();
-        //Gdx.app.log("gs dispose()","called");
-
-
-        Gdx.app.log("162 tk", "thik tha");
     }
     public void keepChangingBrickTypes(){
         Thread thread = new Thread(new Runnable() {

@@ -123,6 +123,7 @@ public class Arrow {
 
                             }
                             game.gs.bot.lives--;
+                            Gdx.app.log("Arrow.java dodge bot.xposition: ",""+game.gs.bot.xPosition);
 
                             thisArrow.dispose();
                             //Gdx.app.log("arrow remove : ","yes");
@@ -155,7 +156,7 @@ public class Arrow {
     public boolean arrowHitBot(Arrow arrow){
         boolean hit = false;
         //Gdx.app.log("height reduced : and dx",arrow.dy+" "+arrow.dx);
-        if(arrow.yPosition+dy> game.height / game.gs.bot.screenFractionAbove0 && arrow.xPosition +dx >= game.gs.bot.xPosition && arrow.xPosition+dx <= (game.gs.bot.xPosition + game.gs.bot.character.getWidth())) {
+        if(arrow.yPosition+dy> game.height / game.gs.bot.screenFractionAbove0 && (arrow.yPosition+dy)<(game.height / game.gs.bot.screenFractionAbove0 + game.gs.bot.character.getHeight())  && arrow.xPosition +dx >= game.gs.bot.xPosition && arrow.xPosition+dx <= (game.gs.bot.xPosition + game.gs.bot.character.getWidth())) {
             hit = true;
         }
         //Gdx.app.log("arrow yPosition :",arrow.yPosition+" bot yPosition :"+gs.game.height / gs.bot.screenFractionAbove0+" arrow xPosition "+arrow.xPosition+" bot xposition"+gs.bot.xPosition);

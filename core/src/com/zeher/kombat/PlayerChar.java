@@ -20,6 +20,8 @@ public class PlayerChar {
     //public int arrow_interval_level;
     public int arrowSpeed;
     public int maxArrows=2;
+    public int charWidth;
+    public int charHeight;
     public PlayerChar(GameScreen gs){
         this.gs=gs;
         //lives=5;
@@ -30,10 +32,12 @@ public class PlayerChar {
         screenFractionAbove0=16;
         screenFractionCharWidth=6;
         screenFractionCharHeight=5;
+        charWidth=(int) (gs.game.width/screenFractionCharWidth);
+        charHeight= (int) (gs.game.height/screenFractionCharHeight);
     }
     public void render(){
         batch.setProjectionMatrix(gs.game.camera.combined);
-        batch.draw(character,xPosition,gs.game.height/screenFractionAbove0,gs.game.width/screenFractionCharWidth,gs.game.height/screenFractionCharHeight);
+        batch.draw(character,xPosition,gs.game.height/screenFractionAbove0,charWidth,charHeight);
     }
     public void dispose(){
         character.dispose();

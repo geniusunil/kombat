@@ -1,13 +1,14 @@
 package com.zeher.kombat;
 /*
     To DO
-    next 1. better dodge and boundaries
+    1.
 
     2. levels testing
-    3.
+    next 3. arrow disappears if next arrow goes out of screen first
     4. graphics
     5. Sound
-    6. Arrow should not damage once it has crossed
+    6.
+    7. transparent buttons
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

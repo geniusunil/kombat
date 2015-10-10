@@ -57,7 +57,7 @@ public class Bot {
             @Override
             public void run() {
                 try {
-                    long lastArrowShot=System.currentTimeMillis();
+
                     flag=true;
                     while(flag) {
                         //Gdx.app.log("thread to chal:","raha h yar");
@@ -67,18 +67,13 @@ public class Bot {
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
                         if (game.gs.botArrows.size > 0 && game.gs.botArrows.size<=game.gs.bot.maxArrows) {
-
                                 //Gdx.app.log("time :",System.currentTimeMillis()-lastArrowShot+"");
-                                    Gdx.app.log("arrow interval",arrow_interval+"");
+                                    Gdx.app.log("arrow interval", arrow_interval + "");
                                     aim();
                                     game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
                                     game.gs.bot.noOfArrowsFired++;
-                                    Gdx.app.log("noofarrowsfired: ",game.gs.bot.noOfArrowsFired+"");
+                                    Gdx.app.log("noofarrowsfired: ", game.gs.bot.noOfArrowsFired + "");
                                     game.gs.initMglNewBotArrow();
-                                    lastArrowShot=System.currentTimeMillis();
-
-
-
                         }
 
                         Thread.sleep(500);
@@ -105,7 +100,7 @@ public class Bot {
             while (arrowtoDodge.yPosition > game.height/4) {
                 float expectedXAtBotOrigin = ((game.height / screenFractionAbove0) - arrowtoDodge.c) / arrowtoDodge.m;
                 float expectedXAtBotEnd = ((game.height / screenFractionAbove0) + character.getHeight() - arrowtoDodge.c) / arrowtoDodge.m;
-                if(expectedXAtBotEnd<expectedXAtBotOrigin){
+                if(expectedXAtBotEnd<expectedXAtBotOrigin){    // so that expectedXAtBotEnd is always greater than expectedXAtBotOrigin
                     expectedXAtBotEnd+=expectedXAtBotOrigin;
                     expectedXAtBotOrigin=expectedXAtBotEnd-expectedXAtBotOrigin;
                     expectedXAtBotEnd=expectedXAtBotEnd-expectedXAtBotOrigin;
@@ -122,10 +117,10 @@ public class Bot {
                 xRangesToAvoid.add(rect);
                 if ((xPosition<expectedXAtBotOrigin && xPosition>expectedXAtBotEnd) ||((xPosition+character.getWidth())>expectedXAtBotOrigin && (xPosition+character.getWidth())<expectedXAtBotEnd) || (expectedXAtBotEnd>xPosition && expectedXAtBotEnd<(xPosition+character.getHeight()))) {
                     isSafe=false;
-//                    Gdx.app.log("need to dodge:", "yes");
+                    Gdx.app.log("need to dodge:", "yes");
                 }
                 else{
-//                    Gdx.app.log("need to dodge:", "no");
+                    //Gdx.app.log("need to dodge:", "no");
                 }
                 i++;
                 if(game.gs.arrows.size>i)
@@ -147,7 +142,6 @@ public class Bot {
         Gdx.app.log("max :",one.y+"");
         safeRanges.add(one);
         while(spaceLeft && i<xRangesToAvoid.size){
-            //Gdx.app.log("got in line :","113");
             Rectangle rect=  xRangesToAvoid.get(i);
             i++;
             for(int j=0;j<safeRanges.size;j++) {
@@ -187,9 +181,9 @@ public class Bot {
                 j++;
             }
         }
-        //Gdx.app.log("safeRanges : ",safeRanges+"");
+        Gdx.app.log("dodge safeRanges : ",safeRanges+"");
         safeMidPoints=convertRangesToMidPoints(safeRanges);
-        //Gdx.app.log("safeMidPoints : ",safeMidPoints+"");
+        Gdx.app.log("dodge safeMidPoints : ",safeMidPoints+"");
         int distance=0;
         if(safeMidPoints.size>0)
             distance=Math.abs((int)(xPosition - safeMidPoints.get(0)));
@@ -202,7 +196,7 @@ public class Bot {
         }
 
         try {
-            Gdx.app.log("safe spot: ",safeMidPoints.get(k-1)+"");
+            Gdx.app.log("dodge safe spot: ",safeMidPoints.get(k-1)+"");
             moveTo(safeMidPoints.get(k - 1));
         }catch (IndexOutOfBoundsException e){
 
@@ -248,6 +242,7 @@ public class Bot {
             xPosition+=update;
             game.gs.botArrows.get(game.gs.botArrows.size-1).xPosition=(int)((game.gs.bot.xPosition)+(((float)50/88)*(game.width/game.gs.bot.screenFractionCharWidth)));
         }
+
     }
     public boolean notReached(float update,int x){
         boolean notReached=true;
