@@ -30,6 +30,7 @@ public class BotArrow {
     boolean flipY;
     float arrowWidthFraction=27;
     float dy,dx;
+    public boolean hit;
     // following is for the fire()
     Kombat game;
     public Thread fireThread;
@@ -95,7 +96,15 @@ public class BotArrow {
 
                         if(arrowHitPlayer(thisArrow)){
                             try {
-                                game.gs.botArrows.removeIndex(0);
+                                boolean notDone=true;
+                                int i=0;
+                                while(notDone) {
+                                    if (game.gs.botArrows.get(i).hit) {
+                                        game.gs.botArrows.removeIndex(i);
+                                        notDone = false;
+                                    } else
+                                        i++;
+                                }
                             }
                             catch (IndexOutOfBoundsException e) {
                             }
@@ -140,7 +149,7 @@ public class BotArrow {
         fireThread.start();
     }
     public boolean arrowHitPlayer(BotArrow botArrow){
-        boolean hit = false;
+        hit = false;
 
         if((botArrow.yPosition-botArrow.dy)< (game.height / game.gs.playerChar.screenFractionAbove0+ game.gs.playerChar.character.getHeight()) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && botArrow.xPosition-botArrow.dx >= game.gs.playerChar.xPosition && botArrow.xPosition-botArrow.dx <= (game.gs.playerChar.xPosition + game.gs.playerChar.character.getWidth())) {
             hit = true;

@@ -33,7 +33,7 @@ public class Arrow {
     float dy,dx;
     float fractionOfCharacterArrowHeight=0.5f;
     public Thread fireThread;
-
+    public boolean hit;
     // following is for the fire()
 
     float m;
@@ -118,7 +118,16 @@ public class Arrow {
                         Thread.sleep(game.gs.playerChar.arrowSpeed);
                         if(arrowHitBot(thisArrow)){
                             try {
-                                game.gs.arrows.removeIndex(0);
+                                boolean notDone=true;
+                                int i=0;
+                                while(notDone){
+                                    if(game.gs.arrows.get(i).hit){
+                                        game.gs.arrows.removeIndex(i);
+                                        notDone=false;
+                                    }
+                                    else
+                                        i++;
+                                }
                             }catch (IndexOutOfBoundsException e){
 
                             }
@@ -164,7 +173,7 @@ public class Arrow {
         fireThread.start();
     }
     public boolean arrowHitBot(Arrow arrow){
-        boolean hit = false;
+        hit = false;
         //Gdx.app.log("height reduced : and dx",arrow.dy+" "+arrow.dx);
         if(arrow.yPosition+dy> game.height / game.gs.bot.screenFractionAbove0 && (arrow.yPosition+dy)<(game.height / game.gs.bot.screenFractionAbove0 + game.gs.bot.character.getHeight())  && arrow.xPosition +dx >= game.gs.bot.xPosition && arrow.xPosition+dx <= (game.gs.bot.xPosition + game.gs.bot.character.getWidth())) {
             hit = true;
