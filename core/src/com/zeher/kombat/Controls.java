@@ -53,12 +53,11 @@ public class Controls {
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-        table.setDebug(true); // This is optional, but enables debug lines for tables.
+        //table.setDebug(true); // This is optional, but enables debug lines for tables.
         texture=new Texture(Gdx.files.internal("controls.png"));
         upRegion = new TextureRegion(texture,64,64);
         downRegion =new TextureRegion(texture,64,64);
         buttonFont =new BitmapFont();
-
         style = new TextButton.TextButtonStyle();
         style.up = new TextureRegionDrawable(upRegion);
         style.down = new TextureRegionDrawable(downRegion);
@@ -69,7 +68,6 @@ public class Controls {
     private void loadAssets () {
         Texture texture = new Texture(Gdx.files.internal("controls.png"));
         TextureRegion[] buttons = TextureRegion.split(texture, 64, 64)[0];
-
         leftB = new LeftButton("lower", style,game);
         table.add(leftB).width(leftRightWidth).height(leftRightHeight).padRight(120);
         table.left().bottom();
@@ -109,7 +107,9 @@ public class Controls {
     public void render (float delta) {
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
+
         stage.draw();
+
     }
 
     public void dispose () {

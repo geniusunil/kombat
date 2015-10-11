@@ -41,7 +41,7 @@ public class IntroScreen implements Screen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        table.setDebug(true); // This is optional, but enables debug lines for tables.
+        //table.setDebug(true); // This is optional, but enables debug lines for tables.
         Texture texture=new Texture(Gdx.files.internal("controls.png"));
         TextureRegion upRegion = new TextureRegion(texture,64,64);
         //BitmapFont buttonFont =new BitmapFont();
