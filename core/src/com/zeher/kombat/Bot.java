@@ -32,15 +32,12 @@ public class Bot {
     public int accuracy; //lesser the more accurate
     public int noOfArrowsFired;
     public boolean flag;
-    public int dodgeLevel=1;
     public int maxArrows;
     public Bot(Kombat game){
         this.game=game;
-        //lives=5;
         this.batch=game.batch;
         character = new Texture("player.png");
         xPosition=game.width/2;
-       // walkSpeed=5;
         screenFractionAbove0=1.28f;
         screenFractionCharWidth=6;
         screenFractionCharHeight=5;
@@ -57,10 +54,12 @@ public class Bot {
             @Override
             public void run() {
                 try {
-
                     flag=true;
                     while(flag) {
                         //Gdx.app.log("thread to chal:","raha h yar");
+                        while (game.gs.paused){
+                            game.gs.pausePoint();
+                        }
                         if (!isSafe()) {
                             dodge();
                         }

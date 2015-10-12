@@ -3,11 +3,11 @@ package com.zeher.kombat;
     To DO
     1.
 
-    next 2. levels testing
-    3.
+    2. levels testing
+    next 3. pause button
     4. graphics
     5. Sound
-    6.
+    6. social share score
     7.
  */
 import com.badlogic.gdx.Game;

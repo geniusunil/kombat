@@ -46,9 +46,10 @@ public class GameScreen implements Screen{
     public Array<BotArrow> botArrows;
     public Texture background;
     public GameOverScreen gos;
-    int numOfParameters=7;  //paramters changing in diff. levels
-    int params[]=new int[7];
+    int numOfParameters=4;  //paramters changing in diff. levels
+    int params[];
     public InputMultiplexer gameS;
+    public boolean paused=false; //to pause entire game
     public GameScreen(Kombat game){
         this.batch=game.batch;
         this.game=game;
@@ -120,7 +121,7 @@ public class GameScreen implements Screen{
         playerChar.render();
         bot.render();
         game.gs.botArrow.render();
-        game.font.draw(batch, "" + game.gs.arrows.size,250,250);
+        game.font.draw(batch, "" + game.gs.arrows.size, 250, 250);
 
         batch.end();
         controls.render(delta);
@@ -130,10 +131,12 @@ public class GameScreen implements Screen{
 
     }
     public void pause(){
-
+        pauseGame();
     }
     public void resume(){
 
+        Gdx.app.log("GameScreen resume: ","occured");
+        unpause();
     }
     public void resize(int x,int y){
 
@@ -152,6 +155,26 @@ public class GameScreen implements Screen{
         playerChar.dispose();
         controls.dispose();
     }
+
+    public synchronized void pausePoint() {
+        while (paused) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void pauseGame() {
+        paused = true;
+    }
+
+    public synchronized void unpause() {
+        paused = false;
+        this.notifyAll();
+    }
+
     public void keepChangingBrickTypes(){
         Thread thread = new Thread(new Runnable() {
 
@@ -180,10 +203,11 @@ public class GameScreen implements Screen{
         thread.start();
     }
     public void setLevel(int curLevel){
-        int remainder=curLevel%7;
-        int quotient=curLevel/7;
+        int remainder=curLevel%numOfParameters;
+        int quotient=curLevel/numOfParameters;
         Gdx.app.log("setLevel:","curlevel "+curLevel+" rem "+remainder+" quo"+quotient);
-        for(int i=0;i<7;i++){
+        params=new int[numOfParameters];
+        for(int i=0;i<numOfParameters;i++){
             params[i]=quotient;
             if(remainder>0) {
                 params[i]++;
@@ -195,16 +219,16 @@ public class GameScreen implements Screen{
 
         bot.maxArrows=2*(params[0]+1);
         bot.walkSpeed=params[1]+1;
-        bot.arrowSpeed=10/(params[2]+1)+1;
+        bot.arrowSpeed=5/(params[2]+1)+1;
         bot.accuracy=10/(params[3]+1);
         bot.lives=curLevel+1;
-        bot.dodgeLevel=params[4]+1;
+        //bot.dodgeLevel=params[4]+1;
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
         game.gs.playerChar.maxArrows=(params[0]+1)*2;
         game.gs.playerChar.walkSpeed=params[1]+1;
-        game.gs.playerChar.arrowSpeed=10/(params[2]+1)+1; //arrowSpeed can't be zero
+        game.gs.playerChar.arrowSpeed=5/(params[2]+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=curLevel+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
