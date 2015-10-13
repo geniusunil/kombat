@@ -1,7 +1,7 @@
 package com.zeher.kombat;
 /*
     To DO
-    1.
+    1. game crashes on high levels, 10, 100
 
     2. levels testing
     next 3. pause button

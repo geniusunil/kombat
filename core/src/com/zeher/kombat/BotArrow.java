@@ -87,6 +87,9 @@ public class BotArrow {
                 try {
 
                     while(true) {
+                        while (game.gs.paused){
+                            game.gs.pausePoint();
+                        }
                         thisArrow.yPosition--;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
                         if(game.getScreen()==game.gs.gos){
