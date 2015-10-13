@@ -69,6 +69,9 @@ public class Controls {
         Texture texture = new Texture(Gdx.files.internal("controls.png"));
         TextureRegion[] buttons = TextureRegion.split(texture, 64, 64)[0];
         leftB = new LeftButton("lower", style,game);
+        table.add(game.introScreen.settings).width(120).height(120).padRight(240);
+        table.add(game.introScreen.help).width(120).height(120).padLeft(240);
+        table.row();
         table.add(leftB).width(leftRightWidth).height(leftRightHeight).padRight(120);
         table.left().bottom();
 

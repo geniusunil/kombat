@@ -25,6 +25,7 @@ public class IntroScreen implements Screen{
     //for the button
     Stage stage;
     Table table;
+    public TextButton help,settings;
 
     public IntroScreen (Kombat game){
         this.game=game;
@@ -52,9 +53,9 @@ public class IntroScreen implements Screen{
 
         TextButton levels = new TextButton("level", style);
         table.add(levels);
-        TextButton settings = new TextButton("settings", style);
+        settings = new TextButton("settings", style);
         table.add(settings);// Add widgets to the table here.
-        TextButton help = new TextButton("help",style);
+        help = new TextButton("help",style);
         table.add(help);
         TextButton play = new TextButton("play",style);
         table.add(play);
