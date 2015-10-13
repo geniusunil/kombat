@@ -13,10 +13,10 @@ import com.zeher.kombat.Kombat;
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
-		// In KITKAT (4.4) and next releases, hide the virtual buttons
+		/*// In KITKAT (4.4) and next releases, hide the virtual buttons
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			hideVirtualButtons();
-		}
+		}*/
 
 
 		super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(new Kombat(), config);
 	}
 
-	@TargetApi(19)
+	/*@TargetApi(19)
 	private void hideVirtualButtons() {
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -46,5 +46,5 @@ public class AndroidLauncher extends AndroidApplication {
 				hideVirtualButtons();
 			}
 		}
-	}
+	}*/
 }
