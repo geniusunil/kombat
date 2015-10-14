@@ -59,7 +59,14 @@ public class MyGestureListener implements InputProcessor {
         //Gdx.app.log("from mgl: game.gs.arrow.arrow_interval = ",game.gs.playerChar.arrow_interval+"");
         if(lastArrowHit==0 && game.getScreen()==gs)                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
-        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && (pointer==touchDragPointer || (touchDragPointer==-1 && pointer!=game.gs.controls.controlsPointer1 && pointer!=game.gs.controls.controlsPointer2)) && game.getScreen()==gs) {
+        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && (pointer==touchDragPointer || (touchDragPointer==-1 && pointer!=game.gs.controls.controlsPointer1 && pointer!=game.gs.controls.controlsPointer2 && pointer!=game.introScreen.helpPointer)) && game.getScreen()==gs) {
+           /* this will execute if
+            1. player has not already fired arrows more than the limit
+            2. either i> pointer is same as tdpointer
+                     or ii> there was no touchdrag at all plus this pointer is not the same as acting on buttons- left right and pause
+            3. all this is happening on gamescreen
+           */
+
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).fire();
                 lastArrowHit=System.currentTimeMillis();
@@ -84,7 +91,15 @@ public class MyGestureListener implements InputProcessor {
         //Gdx.app.log("occurred: ", "touchdrag");
         if(touchDragPointer==-1)
             touchDragPointer=pointer;
-        if(touchDragPointer!=game.gs.controls.controlsPointer1 && touchDragPointer!=game.gs.controls.controlsPointer2  && pointer==touchDragPointer) {
+        if(touchDragPointer!=game.gs.controls.controlsPointer1 && touchDragPointer!=game.gs.controls.controlsPointer2  && pointer==touchDragPointer && game.getScreen()==game.gs) {
+            /*
+                this will execute if
+                1. touchdragpointer is not the same as that of control pointer 1
+                2. tdpointer is not the same as that of control pointer 2
+                3. tdpointer and pointer of the method are same
+                4. All this is hapening on the gamescreen
+            */
+
             if (prevScreenX == -1)
                 prevScreenX = screenX;
             float deltaX = screenX - prevScreenX;

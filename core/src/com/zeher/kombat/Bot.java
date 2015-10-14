@@ -116,7 +116,7 @@ public class Bot {
                 xRangesToAvoid.add(rect);
                 if ((xPosition<expectedXAtBotOrigin && xPosition>expectedXAtBotEnd) ||((xPosition+character.getWidth())>expectedXAtBotOrigin && (xPosition+character.getWidth())<expectedXAtBotEnd) || (expectedXAtBotEnd>xPosition && expectedXAtBotEnd<(xPosition+character.getHeight()))) {
                     isSafe=false;
-                    Gdx.app.log("need to dodge:", "yes");
+                    //Gdx.app.log("Bot.java need to dodge:", "yes");
                 }
                 else{
                     //Gdx.app.log("need to dodge:", "no");
@@ -131,14 +131,14 @@ public class Bot {
     }
 
     public void dodge(){ //dodges arrows
-        Gdx.app.log("dodge :","called");
+        //Gdx.app.log("Bot.java dodge :","called");
         boolean spaceLeft=true;
         int i=0;
         safeRanges=new Array();
         Rectangle one=new Rectangle();
         one.x=0;
         one.y=game.width-game.gs.playerChar.character.getWidth();
-        Gdx.app.log("max :",one.y+"");
+        //Gdx.app.log("Bot.java max :",one.y+"");
         safeRanges.add(one);
         while(spaceLeft && i<xRangesToAvoid.size){
             Rectangle rect=  xRangesToAvoid.get(i);
@@ -180,7 +180,7 @@ public class Bot {
                 j++;
             }
         }
-        Gdx.app.log("dodge safeRanges : ",safeRanges+"");
+        //Gdx.app.log("Bot.java dodge safeRanges : ",safeRanges+"");
         safeMidPoints=convertRangesToMidPoints(safeRanges);
         Gdx.app.log("dodge safeMidPoints : ",safeMidPoints+"");
         int distance=0;
@@ -195,7 +195,7 @@ public class Bot {
         }
 
         try {
-            Gdx.app.log("dodge safe spot: ",safeMidPoints.get(k-1)+"");
+            //Gdx.app.log("Bot.java dodge safe spot: ",safeMidPoints.get(k-1)+"");
             moveTo(safeMidPoints.get(k - 1));
         }catch (IndexOutOfBoundsException e){
 
@@ -218,7 +218,7 @@ public class Bot {
             x2=game.gs.playerChar.xPosition+ error;
         else
             x2=game.gs.playerChar.xPosition- error;
-        Gdx.app.log("Aim difference:",game.gs.playerChar.xPosition+" vs. "+x2);
+        //Gdx.app.log("Bot.java Aim difference:",game.gs.playerChar.xPosition+" vs. "+x2);
         float y2=game.height/game.gs.playerChar.screenFractionAbove0;
         game.gs.botArrows.get(game.gs.botArrows.size-1).rotation=(float)Math.toDegrees(Math.atan((y2 - y1) / (x2-x1)))-90;
         if(game.gs.botArrows.get(game.gs.botArrows.size-1).rotation>-100)

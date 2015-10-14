@@ -62,6 +62,7 @@ public class GameScreen implements Screen{
     }
 
     public void show(){
+        unpause();
 //        mapPNG="maps/map0.png";
         //allBricks=new Texture("allBricks.png");
         bot.startWorking();
@@ -74,10 +75,10 @@ public class GameScreen implements Screen{
 //        map=new Map(this,mapPNG);
 //        //keepChangingBrickTypes(); //starts a thread which changes the brick-types in every 5 sec.
         //maprenderer=new MapRenderer(this);
-
-        initMglNewArrow();
-        initMglNewBotArrow();
-
+        if(arrows.size==0 && botArrows.size==0) {
+            initMglNewArrow();
+            initMglNewBotArrow();
+        }
 
         BotArrow.arrowImg=new Texture("arrow.png");
         BotArrow.bow=new Texture("bow.png");
@@ -123,13 +124,14 @@ public class GameScreen implements Screen{
         bot.render();
         game.gs.botArrow.render();
         game.font.draw(batch, "" + game.gs.arrows.size, 250, 250);
-
+        Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
+        Gdx.app.log("GameScreen.java arrows by bot: ",game.gs.botArrows.size+"");
         batch.end();
         controls.render(delta);
 
     }
     public void hide(){
-
+        pauseGame();
     }
     public void pause(){
         pauseGame();

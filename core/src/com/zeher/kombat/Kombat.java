@@ -8,7 +8,7 @@ package com.zeher.kombat;
     4. graphics
     5. Sound
     6. social share score
-    7.
+    7. player is not hurt when hit at right
     8. flickering arrows did not appear recently
  */
 import com.badlogic.gdx.Game;

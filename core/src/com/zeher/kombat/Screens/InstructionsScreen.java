@@ -32,10 +32,12 @@ public class InstructionsScreen implements Screen{
 
         game.batch.draw(ins, 0, 0);
         //game.font.draw(game.batch,""+game.gs.arrows.size,250,250);
+        Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
+        Gdx.app.log("GameScreen.java arrows by bot: ", game.gs.botArrows.size + "");
         game.batch.end();
         if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>500){
 
-            game.setScreen(game.gs);
+            game.introScreen.goToGameScreen();
 
             this.dispose();
 

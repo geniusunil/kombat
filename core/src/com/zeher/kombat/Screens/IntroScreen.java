@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -26,6 +28,8 @@ public class IntroScreen implements Screen{
     Stage stage;
     Table table;
     public TextButton help,settings;
+    public boolean helpBtouchFlag;
+    public int helpPointer=-1;
 
     public IntroScreen (Kombat game){
         this.game=game;
@@ -71,18 +75,24 @@ public class IntroScreen implements Screen{
 
             }
         });
-        help.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        help.addListener(new ActorGestureListener() {
+
+            public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 game.setScreen(new InstructionsScreen(game));
+                helpBtouchFlag = true;
+                helpPointer=pointer;
+            }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                helpBtouchFlag = false;
+                helpPointer=-1;
+                // Gdx.app.log("occured: ", "touchUp on less");
             }
         });
 
         play.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.gs);
-                game.gs.setLevel(LevelChooser.curLevel);
+                goToGameScreen();
             }
         });
 
@@ -99,12 +109,7 @@ public class IntroScreen implements Screen{
         game.font.drawMultiLine(game.batch, "Karna \n    vs \n       Arjuna", 100, 1200);
         game.font.setScale(5);
         game.font.draw(game.batch, "Touch for a bout!", 100, 750);
-        game.font.setScale(3);
-        game.font.draw(game.batch, "Major Project by :", 350, 500);
         game.font.setScale(2);
-        game.font.draw(game.batch, "Abhishek Verma 3132", 400, 400);
-        game.font.draw(game.batch,"Sunil Kumar 3149",400,350);
-        game.font.draw(game.batch, "Deepika Kaushal 3166", 400, 300);
         //game.font.draw(game.batch,""+game.gs.arrows.size,250,250);
 
 
@@ -120,7 +125,11 @@ public class IntroScreen implements Screen{
             //Gdx.app.log("introscreen arrows :",game.gs.arrows.size+"");
         }*/
     }
-
+    public void goToGameScreen(){
+        game.setScreen(game.gs);
+        if(game.gs.bot.lives==0)
+            game.gs.setLevel(LevelChooser.curLevel);
+    }
     @Override
     public void resize(int width, int height) {
 
