@@ -36,6 +36,7 @@ public class InstructionsScreen implements Screen{
         if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>500){
 
             game.setScreen(game.gs);
+
             this.dispose();
 
         }

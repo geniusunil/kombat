@@ -9,6 +9,7 @@ package com.zeher.kombat;
     5. Sound
     6. social share score
     7.
+    8. flickering arrows did not appear recently
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

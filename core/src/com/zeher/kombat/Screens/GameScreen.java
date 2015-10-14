@@ -58,12 +58,13 @@ public class GameScreen implements Screen{
         playerChar = new PlayerChar(this);
         arrows=new Array(); //already done above
         botArrows= new Array();
+        bot = new Bot(game);
     }
 
     public void show(){
 //        mapPNG="maps/map0.png";
         //allBricks=new Texture("allBricks.png");
-
+        bot.startWorking();
         controls = new Controls(game);
         gameS= new InputMultiplexer();
         gameS.addProcessor(game.mgl);
@@ -73,7 +74,7 @@ public class GameScreen implements Screen{
 //        map=new Map(this,mapPNG);
 //        //keepChangingBrickTypes(); //starts a thread which changes the brick-types in every 5 sec.
         //maprenderer=new MapRenderer(this);
-        bot = new Bot(game);
+
         initMglNewArrow();
         initMglNewBotArrow();
 
@@ -153,7 +154,7 @@ public class GameScreen implements Screen{
        /* map.dispose();
         allBricks.dispose();*/
         playerChar.dispose();
-        controls.dispose();
+       // controls.dispose();
     }
 
     public synchronized void pausePoint() {

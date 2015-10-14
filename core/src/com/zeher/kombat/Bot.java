@@ -42,7 +42,7 @@ public class Bot {
         screenFractionCharWidth=6;
         screenFractionCharHeight=5;
         xRangesToAvoid=new Array();
-        startWorking();
+
     }
     public void render(){
         //Gdx.app.log("alive :", work.isAlive() + "");
