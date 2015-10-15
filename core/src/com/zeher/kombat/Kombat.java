@@ -4,11 +4,11 @@ package com.zeher.kombat;
     1. game crashes on high levels, 10, 100
 
     2. levels testing
-    next 3. pause button
-    4. graphics
+    3.
+    4. graphics - pause screen, social share score
     5. Sound
     6. social share score
-    7. player is not hurt when hit at right
+    next 7. make the character images rectangular
     8. flickering arrows did not appear recently
  */
 import com.badlogic.gdx.Game;

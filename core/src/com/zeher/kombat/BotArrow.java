@@ -153,11 +153,10 @@ public class BotArrow {
     }
     public boolean arrowHitPlayer(BotArrow botArrow){
         hit = false;
-
-        if((botArrow.yPosition-botArrow.dy)< (game.height / game.gs.playerChar.screenFractionAbove0+ game.gs.playerChar.character.getHeight()) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && botArrow.xPosition-botArrow.dx >= game.gs.playerChar.xPosition && botArrow.xPosition-botArrow.dx <= (game.gs.playerChar.xPosition + game.gs.playerChar.character.getWidth())) {
+        Gdx.app.log("BotArrow.java BotArrow yPosition :", botArrow.yPosition + " bot yPosition :" + game.gs.game.height / game.gs.bot.screenFractionAbove0 + " arrow xPosition " + botArrow.xPosition + " bot xposition" + game.gs.bot.xPosition + " dy is : "+botArrow.dy+ " dx is: "+ botArrow.dx);
+        if((botArrow.yPosition-botArrow.dy)< (game.height / game.gs.playerChar.screenFractionAbove0+ game.gs.playerChar.charHeight) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && botArrow.xPosition-botArrow.dx >= game.gs.playerChar.xPosition && botArrow.xPosition-botArrow.dx <= (game.gs.playerChar.xPosition + game.gs.playerChar.charWidth)) {
             hit = true;
         }
-        //Gdx.app.log("arrow yPosition :", arrow.yPosition + " bot yPosition :" + game.gs.game.height / game.gs.bot.screenFractionAbove0 + " arrow xPosition " + arrow.xPosition + " bot xposition" + game.gs.bot.xPosition);
         return hit;
     }
     public void dispose(){
