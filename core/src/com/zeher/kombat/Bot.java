@@ -61,7 +61,7 @@ public class Bot {
                             game.gs.pausePoint();
                         }
                         if (!isSafe()) {
-                           // dodge();
+                            dodge();
                         }
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 

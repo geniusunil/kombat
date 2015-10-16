@@ -8,8 +8,8 @@ package com.zeher.kombat;
     4. graphics - pause screen, social share score
     5. Sound
     6. social share score
-    next 7. make the character images rectangular
-    8. flickering arrows did not appear recently
+    7.
+    next 8. flickering arrows after using help button
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
