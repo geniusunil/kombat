@@ -35,6 +35,8 @@ public class BotArrow {
     Kombat game;
     public Thread fireThread;
     public boolean arrowWithinScreen;
+    public float marginRight;    //margins will improve for what you see is what you get when damaging the player
+    public float marginLeft;
     public BotArrow(Kombat game){
         this.game=game;
         this.batch=game.batch;
@@ -53,7 +55,8 @@ public class BotArrow {
         arrowHeight= (game.height/game.gs.playerChar.screenFractionCharHeight)*fractionOfCharacterArrowHeight;
         xPosition=(game.gs.bot.xPosition)+(((float)25/88)*(game.gs.game.width/game.gs.bot.screenFractionCharWidth));
         yPosition=game.height/game.gs.bot.screenFractionAbove0+((float)160/180*game.height/game.gs.bot.screenFractionCharHeight);
-
+        marginRight=game.gs.playerChar.charWidth/4;
+        marginLeft=game.gs.playerChar.charWidth/10;
     }
     public void render(){
         try {
@@ -154,7 +157,10 @@ public class BotArrow {
     public boolean arrowHitPlayer(BotArrow botArrow){
         hit = false;
         //Gdx.app.log("BotArrow.java BotArrow yPosition with dy :", botArrow.yPosition-botArrow.dy + " player yPosition :" + ((game.gs.game.height / game.gs.playerChar.screenFractionAbove0) +game.gs.playerChar.charHeight)+ " arrow xPosition with dx " + (botArrow.xPosition-botArrow.dx) + " player xposition" + game.gs.playerChar.xPosition + " dy is : "+botArrow.dy+ " dx is: "+ botArrow.dx);
-        if((botArrow.yPosition-botArrow.dy)< ((game.height / game.gs.playerChar.screenFractionAbove0)+ game.gs.playerChar.charHeight) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && (botArrow.xPosition-botArrow.dx) > game.gs.playerChar.xPosition && (botArrow.xPosition-botArrow.dx) < (game.gs.playerChar.xPosition + game.gs.playerChar.charWidth)) {
+        if((botArrow.yPosition-botArrow.dy)< ((game.height / game.gs.playerChar.screenFractionAbove0)+ game.gs.playerChar.charHeight)
+                && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0)
+                && (botArrow.xPosition-botArrow.dx) > game.gs.playerChar.xPosition+marginRight
+                && (botArrow.xPosition-botArrow.dx) < (game.gs.playerChar.xPosition + (game.gs.playerChar.charWidth-marginLeft))) {
             hit = true;
         }
         return hit;

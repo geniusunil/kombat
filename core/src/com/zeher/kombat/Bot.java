@@ -33,6 +33,8 @@ public class Bot {
     public int noOfArrowsFired;
     public boolean flag;
     public int maxArrows;
+    public int charHeight;
+    public int charWidth;
     public Bot(Kombat game){
         this.game=game;
         this.batch=game.batch;
@@ -42,12 +44,13 @@ public class Bot {
         screenFractionCharWidth=6;
         screenFractionCharHeight=5;
         xRangesToAvoid=new Array();
-
+        charWidth=(int) (game.width/screenFractionCharWidth);
+        charHeight= (int) (game.height/screenFractionCharHeight);
     }
     public void render(){
         //Gdx.app.log("alive :", work.isAlive() + "");
         batch.setProjectionMatrix(game.camera.combined);
-        batch.draw(character, xPosition, game.height / screenFractionAbove0, game.width / screenFractionCharWidth, game.height / screenFractionCharHeight, 0, 0, 88, 178, true, false);
+        batch.draw(character, xPosition, game.height / screenFractionAbove0, charWidth, charHeight, 0, 0, 88, 178, true, false);
     }
     public void startWorking() {
         work=new Thread(new Runnable() {
@@ -71,7 +74,7 @@ public class Bot {
                                     aim();
                                     game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
                                     game.gs.bot.noOfArrowsFired++;
-                                    Gdx.app.log("noofarrowsfired: ", game.gs.bot.noOfArrowsFired + "");
+                                    //Gdx.app.log("noofarrowsfired: ", game.gs.bot.noOfArrowsFired + "");
                                     game.gs.initMglNewBotArrow();
                         }
 
@@ -212,7 +215,7 @@ public class Bot {
     public void aim(){
         float x1=xPosition;
         float y1=game.height / screenFractionAbove0;
-        float error=MathUtils.random(accuracy)*(game.width / (screenFractionCharWidth*5));
+        float error=MathUtils.random(accuracy)*(charWidth/5);
         float x2=0;
         if(MathUtils.random(2)==1)
             x2=game.gs.playerChar.xPosition+ error;
@@ -239,7 +242,7 @@ public class Bot {
                 //do nothing
             }
             xPosition+=update;
-            game.gs.botArrows.get(game.gs.botArrows.size-1).xPosition=(int)((game.gs.bot.xPosition)+(((float)50/88)*(game.width/game.gs.bot.screenFractionCharWidth)));
+            game.gs.botArrows.get(game.gs.botArrows.size-1).xPosition=(int)((game.gs.bot.xPosition)+(((float)50/88)*(charWidth)));
         }
 
     }

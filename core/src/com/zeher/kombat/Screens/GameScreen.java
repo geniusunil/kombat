@@ -124,8 +124,8 @@ public class GameScreen implements Screen{
         bot.render();
         game.gs.botArrow.render();
         game.font.draw(batch, "" + game.gs.arrows.size, 250, 250);
-        Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
-        Gdx.app.log("GameScreen.java arrows by bot: ",game.gs.botArrows.size+"");
+        //Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
+       // Gdx.app.log("GameScreen.java arrows by bot: ",game.gs.botArrows.size+"");
         batch.end();
         controls.render(delta);
 
@@ -220,7 +220,7 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.maxArrows=1*(params[0]+1);
+        bot.maxArrows=2*(params[0]+1);
         bot.walkSpeed=params[1]+1;
         bot.arrowSpeed=5/(params[2]+1)+1;
         bot.accuracy=10/(params[3]+1);

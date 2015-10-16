@@ -40,6 +40,7 @@ public class Arrow {
     float c;
 
     public boolean arrowWithinScreen;
+    public float marginRight;
     public Arrow(Kombat game){
         this.game=game;
         this.batch = game.batch;
@@ -61,6 +62,7 @@ public class Arrow {
         xPosition=(game.gs.playerChar.xPosition)+(((float)50/88)*(game.gs.game.width/game.gs.playerChar.screenFractionCharWidth));
         yPosition=game.gs.game.height/game.gs.playerChar.screenFractionAbove0+((float)125/180*game.gs.game.height/game.gs.playerChar.screenFractionCharHeight);
         rotation=0.0f;
+        marginRight=(game.gs.bot.charWidth)/3;
     }
     public void render() {
 
@@ -178,7 +180,10 @@ public class Arrow {
     public boolean arrowHitBot(Arrow arrow){
         hit = false;
         //Gdx.app.log("height reduced : and dx",arrow.dy+" "+arrow.dx);
-        if(arrow.yPosition+dy> game.height / game.gs.bot.screenFractionAbove0 && (arrow.yPosition+dy)<(game.height / game.gs.bot.screenFractionAbove0 + game.gs.bot.character.getHeight())  && arrow.xPosition +dx >= game.gs.bot.xPosition && arrow.xPosition+dx <= (game.gs.bot.xPosition + game.gs.bot.character.getWidth())) {
+        if(arrow.yPosition+dy> game.height / game.gs.bot.screenFractionAbove0
+                && (arrow.yPosition+dy)<(game.height / game.gs.bot.screenFractionAbove0 + game.gs.bot.character.getHeight())
+                && arrow.xPosition +dx >= game.gs.bot.xPosition
+                && arrow.xPosition+dx <= (game.gs.bot.xPosition + game.gs.bot.charWidth - marginRight)) {
             hit = true;
         }
         //Gdx.app.log("arrow yPosition :",arrow.yPosition+" bot yPosition :"+gs.game.height / gs.bot.screenFractionAbove0+" arrow xPosition "+arrow.xPosition+" bot xposition"+gs.bot.xPosition);
