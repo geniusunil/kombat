@@ -77,7 +77,7 @@ public class BotArrow {
         /*Gdx.app.log("curx and cur y and rot: ",curX+" "+curY+" "+curRot);
         Gdx.app.log("m :",""+m);*/
         thisArrow.dy=(float)Math.abs(thisArrow.arrowHeight*Math.cos(Math.toRadians(thisArrow.rotation)));
-        thisArrow.dx=dy/m+5;        //5 was added to improve the hit detection from lef of player.
+        thisArrow.dx=dy/m;        //5 was added to improve the hit detection from lef of player.
 
         fireThread = new Thread(new Runnable() {
 
@@ -153,7 +153,7 @@ public class BotArrow {
     }
     public boolean arrowHitPlayer(BotArrow botArrow){
         hit = false;
-        Gdx.app.log("BotArrow.java BotArrow yPosition with dy :", botArrow.yPosition-botArrow.dy + " player yPosition :" + ((game.gs.game.height / game.gs.playerChar.screenFractionAbove0) +game.gs.playerChar.charHeight)+ " arrow xPosition with dx " + (botArrow.xPosition-botArrow.dx) + " player xposition" + game.gs.playerChar.xPosition + " dy is : "+botArrow.dy+ " dx is: "+ botArrow.dx);
+        //Gdx.app.log("BotArrow.java BotArrow yPosition with dy :", botArrow.yPosition-botArrow.dy + " player yPosition :" + ((game.gs.game.height / game.gs.playerChar.screenFractionAbove0) +game.gs.playerChar.charHeight)+ " arrow xPosition with dx " + (botArrow.xPosition-botArrow.dx) + " player xposition" + game.gs.playerChar.xPosition + " dy is : "+botArrow.dy+ " dx is: "+ botArrow.dx);
         if((botArrow.yPosition-botArrow.dy)< ((game.height / game.gs.playerChar.screenFractionAbove0)+ game.gs.playerChar.charHeight) && (botArrow.yPosition-botArrow.dy)> (game.height / game.gs.playerChar.screenFractionAbove0) && (botArrow.xPosition-botArrow.dx) > game.gs.playerChar.xPosition && (botArrow.xPosition-botArrow.dx) < (game.gs.playerChar.xPosition + game.gs.playerChar.charWidth)) {
             hit = true;
         }

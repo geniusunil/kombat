@@ -7,7 +7,7 @@ package com.zeher.kombat;
     3.
     4. graphics - pause screen, social share score
     5. Sound
-    6. social share score
+    6.
     7.
     next 8. flickering arrows after using help button
  */
