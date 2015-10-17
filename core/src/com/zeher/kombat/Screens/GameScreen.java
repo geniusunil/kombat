@@ -65,7 +65,8 @@ public class GameScreen implements Screen{
         unpause();
 //        mapPNG="maps/map0.png";
         //allBricks=new Texture("allBricks.png");
-        bot.startWorking();
+        if(!bot.startWorkingAlreadyCalled)
+            bot.startWorking();
         controls = new Controls(game);
         gameS= new InputMultiplexer();
         gameS.addProcessor(game.mgl);

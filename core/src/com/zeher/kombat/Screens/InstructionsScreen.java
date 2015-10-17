@@ -11,7 +11,7 @@ import com.zeher.kombat.Kombat;
  */
 public class InstructionsScreen implements Screen{
     Kombat game;
-    long showTime; //time when the screen showed up
+    public long showTime; //time when the screen showed up
     Texture ins=new Texture("instructions.jpg");
     public InstructionsScreen (Kombat game){
         this.game=game;
@@ -19,7 +19,7 @@ public class InstructionsScreen implements Screen{
     @Override
     public void show() {
         showTime=System.currentTimeMillis();
-
+        Gdx.input.setInputProcessor(game.mgl);
     }
 
     @Override
@@ -32,16 +32,12 @@ public class InstructionsScreen implements Screen{
 
         game.batch.draw(ins, 0, 0);
         //game.font.draw(game.batch,""+game.gs.arrows.size,250,250);
-        Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
+        game.font.draw(game.batch, "" + game.gs.arrows.size, 250, 250);
+        /*Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
         Gdx.app.log("GameScreen.java arrows by bot: ", game.gs.botArrows.size + "");
+        */
         game.batch.end();
-        if(Gdx.input.isTouched() && System.currentTimeMillis()-showTime>500){
 
-            game.introScreen.goToGameScreen();
-
-            this.dispose();
-
-        }
     }
 
     @Override

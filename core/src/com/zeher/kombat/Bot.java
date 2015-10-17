@@ -35,6 +35,7 @@ public class Bot {
     public int maxArrows;
     public int charHeight;
     public int charWidth;
+    public boolean startWorkingAlreadyCalled=false;
     public Bot(Kombat game){
         this.game=game;
         this.batch=game.batch;
@@ -53,6 +54,7 @@ public class Bot {
         batch.draw(character, xPosition, game.height / screenFractionAbove0, charWidth, charHeight, 0, 0, 88, 178, true, false);
     }
     public void startWorking() {
+        startWorkingAlreadyCalled=true;
         work=new Thread(new Runnable() {
             @Override
             public void run() {

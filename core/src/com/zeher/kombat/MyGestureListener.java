@@ -15,6 +15,7 @@ public class MyGestureListener implements InputProcessor {
     GameScreen gs;
     int prevScreenX=-1;
     int touchDragPointer=-1;
+    //int touchDownPointer=-1;
     boolean buttonsPressed;
     int whichButPressed;   //0 for left navigation button and 1 for right
     public long lastArrowHit; //time of last arrow hit by user
@@ -48,7 +49,8 @@ public class MyGestureListener implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
        // Gdx.app.log("occurred: ", "touchdown");
-
+        /*if(game.getScreen()==game.gs)
+            touchDownPointer=pointer;*/
         return false;
     }
 
@@ -57,9 +59,31 @@ public class MyGestureListener implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         //Gdx.app.log("occurred: ", "touchUp" + buttonsPressed);
         //Gdx.app.log("from mgl: game.gs.arrow.arrow_interval = ",game.gs.playerChar.arrow_interval+"");
-        if(lastArrowHit==0 && game.getScreen()==gs)                   //to avoid an involantary arrow fired when gamescreen is loaded
+        //for instructino screen
+        if(game.getScreen()==game.introScreen.instructions && System.currentTimeMillis()-game.introScreen.instructions.showTime>500){
+            game.introScreen.goToGameScreen();
+            Gdx.app.log("Mygesturelistener.java instructionScreen: ","active");
+            return false;
+
+        }
+
+        //for gamescreen
+        boolean clashesWithHelpPointer=false;
+        if(pointer==game.introScreen.helpPointer){
+            clashesWithHelpPointer=true;
+
+        }
+
+        Gdx.app.log("Mygesturelistener.java clasheswithhelppointer: ",""+clashesWithHelpPointer);
+        if(game.getScreen()==gs && lastArrowHit==0 )                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
-        if(game.gs.arrows.size<=game.gs.playerChar.maxArrows && (pointer==touchDragPointer || (touchDragPointer==-1 && pointer!=game.gs.controls.controlsPointer1 && pointer!=game.gs.controls.controlsPointer2 && pointer!=game.introScreen.helpPointer)) && game.getScreen()==gs) {
+        if( game.getScreen()==gs
+                && game.gs.arrows.size<=game.gs.playerChar.maxArrows
+                && (pointer==touchDragPointer
+                    || (touchDragPointer==-1
+                        && pointer!=game.gs.controls.controlsPointer1
+                        && pointer!=game.gs.controls.controlsPointer2
+                        && pointer!=game.introScreen.helpPointer)) ) {
            /* this will execute if
             1. player has not already fired arrows more than the limit
             2. either i> pointer is same as tdpointer
@@ -80,8 +104,9 @@ public class MyGestureListener implements InputProcessor {
             game.gs.initMglNewArrow();
             touchDragPointer=-1;
             prevScreenX=-1;
-        }
 
+        }
+        game.introScreen.helpPointer=-1;
 
         return false;
     }
@@ -89,9 +114,9 @@ public class MyGestureListener implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         //Gdx.app.log("occurred: ", "touchdrag");
-        if(touchDragPointer==-1)
+        if(game.getScreen()==game.gs && touchDragPointer==-1)
             touchDragPointer=pointer;
-        if(touchDragPointer!=game.gs.controls.controlsPointer1 && touchDragPointer!=game.gs.controls.controlsPointer2  && pointer==touchDragPointer && game.getScreen()==game.gs) {
+        if(game.getScreen()==game.gs && touchDragPointer!=game.gs.controls.controlsPointer1 && touchDragPointer!=game.gs.controls.controlsPointer2  && pointer==touchDragPointer ) {
             /*
                 this will execute if
                 1. touchdragpointer is not the same as that of control pointer 1

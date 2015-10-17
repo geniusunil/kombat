@@ -30,7 +30,7 @@ public class IntroScreen implements Screen{
     public TextButton help,settings;
     public boolean helpBtouchFlag;
     public int helpPointer=-1;
-
+    public InstructionsScreen instructions;
     public IntroScreen (Kombat game){
         this.game=game;
     }
@@ -38,6 +38,7 @@ public class IntroScreen implements Screen{
     public void show() {
         showTime=System.currentTimeMillis();
         introbg=new Texture("introbg.jpg");
+        instructions=new InstructionsScreen(game);
         lc=new LevelChooser(game);
         //for the button
         stage = new Stage(new ScreenViewport());
@@ -78,13 +79,14 @@ public class IntroScreen implements Screen{
         help.addListener(new ActorGestureListener() {
 
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new InstructionsScreen(game));
+
+
                 helpBtouchFlag = true;
                 helpPointer=pointer;
             }
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(instructions);
                 helpBtouchFlag = false;
-                helpPointer=-1;
                 // Gdx.app.log("occured: ", "touchUp on less");
             }
         });

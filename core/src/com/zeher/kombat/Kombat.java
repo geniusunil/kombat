@@ -1,7 +1,7 @@
 package com.zeher.kombat;
 /*
     To DO
-    1. game crashes on high levels, 10, 100
+    1.
 
     2. levels testing
     3.
@@ -9,7 +9,7 @@ package com.zeher.kombat;
     5. Sound
     6.
     7.
-    next 8. flickering arrows after using help button
+    next 8. player arrow fires after pauseScreen bcoz touchup occurs on gamescreen
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -58,5 +58,6 @@ public class Kombat extends Game {
         batch.dispose();
         gs.dispose();
         font.dispose();
+        //introScreen.instructions.dispose();
     }
 }
