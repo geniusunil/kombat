@@ -24,6 +24,7 @@ public class MyGestureListener implements InputProcessor {
         this.arrow=game.gs.arrow;
         gs=game.gs;
         //game.gs.initMglNewArrow();
+        game.introScreen.helpPointer=-1;
     }
 
     @Override
@@ -68,13 +69,7 @@ public class MyGestureListener implements InputProcessor {
         }
 
         //for gamescreen
-        boolean clashesWithHelpPointer=false;
-        if(pointer==game.introScreen.helpPointer){
-            clashesWithHelpPointer=true;
 
-        }
-
-        Gdx.app.log("Mygesturelistener.java clasheswithhelppointer: ",""+clashesWithHelpPointer);
         if(game.getScreen()==gs && lastArrowHit==0 )                   //to avoid an involantary arrow fired when gamescreen is loaded
             lastArrowHit=System.currentTimeMillis()-game.gs.playerChar.arrow_interval;
         if( game.getScreen()==gs

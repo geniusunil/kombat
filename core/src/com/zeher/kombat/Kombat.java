@@ -3,20 +3,19 @@ package com.zeher.kombat;
     To DO
     1.
 
-    2. levels testing
+    next 2. levels testing
     3.
     4. graphics - pause screen, social share score
     5. Sound
     6.
     7.
-    next 8. player arrow fires after pauseScreen bcoz touchup occurs on gamescreen
+    8.
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
 import com.zeher.kombat.Screens.GameScreen;
 import com.zeher.kombat.Screens.IntroScreen;
 
@@ -47,9 +46,10 @@ public class Kombat extends Game {
         font.setScale(4);
         batch.setProjectionMatrix(camera.combined);
         gs=new GameScreen(this);
+        introScreen=new IntroScreen(this);
         mgl=new MyGestureListener(this);
 
-        introScreen=new IntroScreen(this);
+
         setScreen(introScreen);
 
 
