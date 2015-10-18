@@ -36,6 +36,7 @@ public class Bot {
     public int charHeight;
     public int charWidth;
     public boolean startWorkingAlreadyCalled=false;
+    public int workSleepTime;
     public Bot(Kombat game){
         this.game=game;
         this.batch=game.batch;
@@ -47,6 +48,7 @@ public class Bot {
         xRangesToAvoid=new Array();
         charWidth=(int) (game.width/screenFractionCharWidth);
         charHeight= (int) (game.height/screenFractionCharHeight);
+
     }
     public void render(){
         //Gdx.app.log("alive :", work.isAlive() + "");
@@ -55,6 +57,7 @@ public class Bot {
     }
     public void startWorking() {
         startWorkingAlreadyCalled=true;
+
         work=new Thread(new Runnable() {
             @Override
             public void run() {
@@ -80,7 +83,7 @@ public class Bot {
                                     game.gs.initMglNewBotArrow();
                         }
 
-                        Thread.sleep(500);
+                        Thread.sleep(workSleepTime);
 
                     }
                     work.join();

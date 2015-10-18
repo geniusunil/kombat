@@ -237,5 +237,9 @@ public class GameScreen implements Screen{
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
         Gdx.app.log("params",Arrays.toString(params));
+
+        //again bot
+        game.gs.bot.workSleepTime=game.height/4*game.gs.playerChar.arrowSpeed;
+        Gdx.app.log("GameScreen.java workSleepTime: ",game.gs.bot.workSleepTime+"");
     }
 }

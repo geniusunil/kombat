@@ -3,7 +3,7 @@ package com.zeher.kombat;
     To DO
     1.
 
-    next 2. levels testing
+    next 2. levels testing, bot.sleep 300 to max to be decided game.height/4*arrowspeed
     3.
     4. graphics - pause screen, social share score
     5. Sound
@@ -19,7 +19,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zeher.kombat.Screens.GameScreen;
 import com.zeher.kombat.Screens.IntroScreen;
 
-import javax.swing.text.View;
 
 public class Kombat extends Game {
     public GameScreen gs;
