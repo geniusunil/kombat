@@ -3,7 +3,7 @@ package com.zeher.kombat;
     To DO
     1.
 
-    next 2. levels testing, bot.sleep 300 to max to be decided game.height/4*arrowspeed
+    next 2. levels testing, walkspeed level 45 should be 100
     3.
     4. graphics - pause screen, social share score
     5. Sound

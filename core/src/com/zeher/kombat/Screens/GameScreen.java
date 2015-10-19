@@ -124,7 +124,7 @@ public class GameScreen implements Screen{
         playerChar.render();
         bot.render();
         game.gs.botArrow.render();
-        game.font.draw(batch, "" + game.gs.arrows.size, 250, 250);
+        game.font.draw(batch, "" + game.gs.botArrows.size, 250, 250);
         //Gdx.app.log("GameScreen.java arrows by player: ", game.gs.arrows.size + "");
        // Gdx.app.log("GameScreen.java arrows by bot: ",game.gs.botArrows.size+"");
         batch.end();
@@ -221,18 +221,18 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.maxArrows=2*(params[0]+1);
-        bot.walkSpeed=params[1]+1;
-        bot.arrowSpeed=5/(params[2]+1)+1;
-        bot.accuracy=10/(params[3]+1);
+        bot.maxArrows=(params[0]+1);
+        bot.walkSpeed=params[1]/2+1;
+        bot.arrowSpeed=5/((params[2]/5)+1)+1;
+        bot.accuracy=30/((params[3]/3)+1);
         bot.lives=curLevel+1;
         //bot.dodgeLevel=params[4]+1;
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.maxArrows=(params[0]+1)*2;
-        game.gs.playerChar.walkSpeed=params[1]+1;
-        game.gs.playerChar.arrowSpeed=5/(params[2]+1)+1; //arrowSpeed can't be zero
+        game.gs.playerChar.maxArrows=(params[0]+1);
+        game.gs.playerChar.walkSpeed=params[1]/2+1;
+        game.gs.playerChar.arrowSpeed=5/((params[2]/5)+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=curLevel+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");

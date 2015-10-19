@@ -20,7 +20,7 @@ public class LeftButton extends TextButton {
        // Gdx.app.log("delta: ",""+delta);
         wait+=delta;
         if(touchFlag && game.gs.playerChar.xPosition>0 && wait>=delta) {
-            game.gs.playerChar.xPosition-=game.gs.playerChar.walkSpeed;
+            game.gs.playerChar.xPosition-=(game.gs.playerChar.walkSpeed);
             try {
                 game.gs.arrows.get(game.gs.arrows.size - 1).update(0);
             } catch (ArrayIndexOutOfBoundsException e) {
