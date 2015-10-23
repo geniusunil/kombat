@@ -11,8 +11,8 @@ import com.zeher.kombat.Screens.GameScreen;
  */
 public class BotArrow {
     SpriteBatch batch;
-    public static Texture arrowImg;
-    public static Texture bow;
+    //public static Texture arrowImg;
+    //public static Texture bow;
     float xPosition;
     float yPosition;
     float xOrigin;
@@ -60,13 +60,13 @@ public class BotArrow {
     }
     public void render(){
         try {
-            batch.draw(bow, xPosition - 150/2, yPosition, 75, 0, 150, 80, 1, 1, game.gs.botArrows.get(game.gs.botArrows.size - 1).rotation, 0, 0, 300, 129, false, false);
+            batch.draw(game.gs.bow, xPosition - 150/2, yPosition, 75, 0, 150, 80, 1, 1, game.gs.botArrows.get(game.gs.botArrows.size - 1).rotation, 0, 0, 300, 129, false, false);
         }
         catch (IndexOutOfBoundsException e) {
         }
         //batch.draw(bow,100,100);
         for(BotArrow botArrow : game.gs.botArrows) {
-            batch.draw(arrowImg, botArrow.xPosition, botArrow.yPosition, botArrow.xOrigin, botArrow.yOrigin, botArrow.arrowWidth, botArrow.arrowHeight, botArrow.xScale, botArrow.yScale, botArrow.rotation, 0, 0, 185,1762,false,false);
+            batch.draw(game.gs.arrowImg, botArrow.xPosition, botArrow.yPosition, botArrow.xOrigin, botArrow.yOrigin, botArrow.arrowWidth, botArrow.arrowHeight, botArrow.xScale, botArrow.yScale, botArrow.rotation, 0, 0, 185,1762,false,false);
 
         }
     }
@@ -93,7 +93,7 @@ public class BotArrow {
                         while (game.gs.paused){
                             game.gs.pausePoint();
                         }
-                        thisArrow.yPosition--;
+                        thisArrow.yPosition-=3;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
                         if(game.getScreen()==game.gs.gos){
                             thisArrow.dispose();

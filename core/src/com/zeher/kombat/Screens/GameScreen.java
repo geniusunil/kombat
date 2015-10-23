@@ -50,6 +50,9 @@ public class GameScreen implements Screen{
     int params[];
     public InputMultiplexer gameS;
     public boolean paused=false; //to pause entire game
+
+    public Texture arrowImg;
+    public Texture bow;
     public GameScreen(Kombat game){
         this.batch=game.batch;
         this.game=game;
@@ -81,8 +84,10 @@ public class GameScreen implements Screen{
             initMglNewBotArrow();
         }
 
-        BotArrow.arrowImg=new Texture("arrow.png");
-        BotArrow.bow=new Texture("bow.png");
+        /*BotArrow.arrowImg=new Texture("arrow.png");
+        BotArrow.bow=new Texture("bow.png");*/
+        bow=new Texture("bow.png");
+        arrowImg=new Texture("arrow.png");
         game.font.setScale(4);
         gos=new GameOverScreen(game);
 
@@ -92,7 +97,7 @@ public class GameScreen implements Screen{
         game.gs.arrow=new Arrow(game);
         game.gs.arrows.add(arrow);
 
-        Gdx.app.log("arrowsSize :", " " + arrows.size);
+        //Gdx.app.log("arrowsSize :", " " + arrows.size);
 
     }
     public void initMglNewBotArrow(){
@@ -221,25 +226,25 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.maxArrows=(params[0]+1);
-        bot.walkSpeed=params[1]/2+1;
-        bot.arrowSpeed=5/((params[2]/5)+1)+1;
+        bot.maxArrows=(params[0]/5+2);
+        bot.walkSpeed=params[1]/5+1;
+        bot.arrowSpeed=5/((params[2]/10)+1)+1;
         bot.accuracy=30/((params[3]/3)+1);
         bot.lives=curLevel+1;
         //bot.dodgeLevel=params[4]+1;
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.maxArrows=(params[0]+1);
-        game.gs.playerChar.walkSpeed=params[1]/2+1;
-        game.gs.playerChar.arrowSpeed=5/((params[2]/5)+1)+1; //arrowSpeed can't be zero
+        game.gs.playerChar.maxArrows=(params[0]/5+2);
+        game.gs.playerChar.walkSpeed=params[1]/5+1;
+        game.gs.playerChar.arrowSpeed=5/((params[2]/10)+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=curLevel+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
         Gdx.app.log("params",Arrays.toString(params));
 
         //again bot
-        game.gs.bot.workSleepTime=game.height/4*game.gs.playerChar.arrowSpeed;
+        game.gs.bot.workSleepTime=game.height/16*game.gs.playerChar.arrowSpeed;
         Gdx.app.log("GameScreen.java workSleepTime: ",game.gs.bot.workSleepTime+"");
     }
 }

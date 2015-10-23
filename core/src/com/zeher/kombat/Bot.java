@@ -63,19 +63,23 @@ public class Bot {
             public void run() {
                 try {
                     flag=true;
+                    long lastSafetyCheck=0;
                     while(flag) {
                         //Gdx.app.log("thread to chal:","raha h yar");
                         while (game.gs.paused){
                             game.gs.pausePoint();
                         }
-                        if (!isSafe()) {
-                            dodge();
+                        if(System.currentTimeMillis()-lastSafetyCheck>=(workSleepTime*8)) {
+                            if (!isSafe()) {
+                                lastSafetyCheck = System.currentTimeMillis();
+                                dodge();
+                            }
                         }
                             //.app.log("xRanges to avoid ",xRangesToAvoid+"");
 
                         if (game.gs.botArrows.size > 0 && game.gs.botArrows.size<=game.gs.bot.maxArrows) {
                                 //Gdx.app.log("time :",System.currentTimeMillis()-lastArrowShot+"");
-                                    Gdx.app.log("arrow interval", arrow_interval + "");
+                                    //Gdx.app.log("arrow interval", arrow_interval + "");
                                     aim();
                                     game.gs.botArrows.get(game.gs.botArrows.size - 1).fire();
                                     game.gs.bot.noOfArrowsFired++;

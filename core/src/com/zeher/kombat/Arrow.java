@@ -12,8 +12,8 @@ import com.zeher.kombat.Screens.GameScreen;
 public class Arrow {
     Kombat game;
     SpriteBatch batch;
-    Texture arrowImg;
-    Texture bow;
+    /*Texture arrowImg;
+    Texture bow;*/
     float xPosition;
     float yPosition;
     float xOrigin;
@@ -44,8 +44,8 @@ public class Arrow {
     public Arrow(Kombat game){
         this.game=game;
         this.batch = game.batch;
-        bow=new Texture("bow.png");
-        arrowImg=new Texture("arrow.png");
+        /*bow=new Texture("bow.png");
+        arrowImg=new Texture("arrow.png");*/
         xOrigin=0;
         yOrigin=0;
         xScale=yScale=1;
@@ -70,16 +70,16 @@ public class Arrow {
             Arrow arrow=game.gs.arrows.get(i);
             try {     //draw the bow
                 //Gdx.app.log("bow: ","drawn");
-                batch.draw(bow, xPosition - 150 / 2, yPosition, 75, 0, 150, 80, 1, 1, game.gs.arrows.get(game.gs.arrows.size - 1).rotation, 0, 0, 300, 129, false, false);
+                batch.draw(game.gs.bow, xPosition - 150 / 2, yPosition, 75, 0, 150, 80, 1, 1, game.gs.arrows.get(game.gs.arrows.size - 1).rotation, 0, 0, 300, 129, false, false);
             }catch (ArrayIndexOutOfBoundsException e) {
             }
             //Gdx.app.log("game.gs.arrow.arrow_interval",game.gs.arrow.arrow_interval+"");
             if(i==game.gs.arrows.size-1 && game.gs.arrows.size<=game.gs.playerChar.maxArrows) {
-                batch.draw(arrow.arrowImg, arrow.xPosition, arrow.yPosition, arrow.xOrigin, arrow.yOrigin, arrow.arrowWidth, arrow.arrowHeight, arrow.xScale, arrow.yScale, arrow.rotation, 0, 0, 185, 1762, false, false);
+                batch.draw(game.gs.arrowImg, arrow.xPosition, arrow.yPosition, arrow.xOrigin, arrow.yOrigin, arrow.arrowWidth, arrow.arrowHeight, arrow.xScale, arrow.yScale, arrow.rotation, 0, 0, 185, 1762, false, false);
                 break;
             }
             else if(i<game.gs.arrows.size-1)
-                batch.draw(arrow.arrowImg, arrow.xPosition, arrow.yPosition, arrow.xOrigin, arrow.yOrigin, arrow.arrowWidth, arrow.arrowHeight, arrow.xScale, arrow.yScale, arrow.rotation, 0, 0, 185, 1762, false, false);
+                batch.draw(game.gs.arrowImg, arrow.xPosition, arrow.yPosition, arrow.xOrigin, arrow.yOrigin, arrow.arrowWidth, arrow.arrowHeight, arrow.xScale, arrow.yScale, arrow.rotation, 0, 0, 185, 1762, false, false);
             }
 
     }
@@ -115,7 +115,7 @@ public class Arrow {
                         while (game.gs.paused){
                             game.gs.pausePoint();
                         }
-                        thisArrow.yPosition++;
+                        thisArrow.yPosition+=3;
                         thisArrow.xPosition=(thisArrow.yPosition-c)/m;
                         if(game.getScreen()==game.gs.gos){
                             thisArrow.dispose();

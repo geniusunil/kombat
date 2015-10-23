@@ -3,7 +3,7 @@ package com.zeher.kombat;
     To DO
     1.
 
-    next 2. levels testing, walkspeed level 45 should be 100
+    next 2. levels testing, decide arrowspeed
     3.
     4. graphics - pause screen, social share score
     5. Sound
