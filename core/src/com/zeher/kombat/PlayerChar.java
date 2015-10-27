@@ -22,6 +22,8 @@ public class PlayerChar {
     public int maxArrows=2;
     public int charWidth;
     public int charHeight;
+    public int arrowInHandRangeX1;
+    public int arrowInHandRangeX2=100;
     public PlayerChar(GameScreen gs){
         this.gs=gs;
         //lives=5;
@@ -34,6 +36,7 @@ public class PlayerChar {
         screenFractionCharHeight=5;
         charWidth=(int) (gs.game.width/screenFractionCharWidth);
         charHeight= (int) (gs.game.height/screenFractionCharHeight);
+
     }
     public void render(){
         batch.setProjectionMatrix(gs.game.camera.combined);

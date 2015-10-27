@@ -94,6 +94,7 @@ public class Arrow {
         else if(rotation<-60){
             rotation=-60;
         }
+        calculatePlayerArrowRange();
     }
     public void fire(){    //when the arrow is fired
         final Arrow thisArrow= this;
@@ -188,6 +189,17 @@ public class Arrow {
         }
         //Gdx.app.log("arrow yPosition :",arrow.yPosition+" bot yPosition :"+gs.game.height / gs.bot.screenFractionAbove0+" arrow xPosition "+arrow.xPosition+" bot xposition"+gs.bot.xPosition);
         return hit;
+    }
+    public void calculatePlayerArrowRange(){
+        game.gs.arrows.get(game.gs.arrows.size - 1).m=(float)Math.tan(Math.toRadians(game.gs.arrows.get(game.gs.arrows.size - 1).rotation+90));
+        game.gs.arrows.get(game.gs.arrows.size - 1).c=game.gs.arrows.get(game.gs.arrows.size - 1).yPosition-(game.gs.arrows.get(game.gs.arrows.size - 1).m*game.gs.arrows.get(game.gs.arrows.size - 1).xPosition);
+        game.gs.playerChar.arrowInHandRangeX1=(int)(((game.height / game.gs.bot.screenFractionAbove0) -  game.gs.arrows.get(game.gs.arrows.size - 1).c) /  game.gs.arrows.get(game.gs.arrows.size - 1).m);
+        game.gs.playerChar.arrowInHandRangeX2=(int)(((game.height / game.gs.bot.screenFractionAbove0) + game.gs.bot.charHeight - game.gs.arrows.get(game.gs.arrows.size - 1).c) / game.gs.arrows.get(game.gs.arrows.size - 1).m);
+            /*if(game.gs.playerChar.arrowInHandRangeX1<game.gs.playerChar.arrowInHandRangeX2){    // so that expectedXAtBotEnd is always greater than expectedXAtBotOrigin
+                game.gs.playerChar.arrowInHandRangeX2+=game.gs.playerChar.arrowInHandRangeX1;
+                game.gs.playerChar.arrowInHandRangeX1=game.gs.playerChar.arrowInHandRangeX2-game.gs.playerChar.arrowInHandRangeX1;
+                game.gs.playerChar.arrowInHandRangeX2=game.gs.playerChar.arrowInHandRangeX2-game.gs.playerChar.arrowInHandRangeX1;
+            }*/
     }
     public void dispose(){
         try{

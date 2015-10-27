@@ -3,9 +3,9 @@ package com.zeher.kombat;
     To DO
     1.
 
-    next 2. levels testing, decide arrowspeed
-    3.
-    4. graphics - pause screen, social share score
+    2.social share score and leaderboard - after making account
+    next 3. shopping
+    4. graphics
     5. Sound
     6.
     7.
@@ -13,6 +13,7 @@ package com.zeher.kombat;
  */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +32,7 @@ public class Kombat extends Game {
     public float yScale;
     public BitmapFont font;
     public IntroScreen introScreen;
+    public Preferences prefs = Gdx.app.getPreferences("preferences");
     @Override
     public void create () {
         xScale=(float)width/Gdx.graphics.getWidth();
@@ -47,7 +49,6 @@ public class Kombat extends Game {
         gs=new GameScreen(this);
         introScreen=new IntroScreen(this);
         mgl=new MyGestureListener(this);
-
 
         setScreen(introScreen);
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.zeher.kombat.Arrow;
 import com.zeher.kombat.Bot;
@@ -53,6 +54,7 @@ public class GameScreen implements Screen{
 
     public Texture arrowImg;
     public Texture bow;
+    public ShapeRenderer shapes;
     public GameScreen(Kombat game){
         this.batch=game.batch;
         this.game=game;
@@ -61,6 +63,7 @@ public class GameScreen implements Screen{
         playerChar = new PlayerChar(this);
         arrows=new Array(); //already done above
         botArrows= new Array();
+        shapes=new ShapeRenderer();
         bot = new Bot(game);
     }
 
@@ -96,7 +99,7 @@ public class GameScreen implements Screen{
     public void initMglNewArrow(){
         game.gs.arrow=new Arrow(game);
         game.gs.arrows.add(arrow);
-
+        arrow.calculatePlayerArrowRange();
         //Gdx.app.log("arrowsSize :", " " + arrows.size);
 
     }
@@ -134,6 +137,11 @@ public class GameScreen implements Screen{
        // Gdx.app.log("GameScreen.java arrows by bot: ",game.gs.botArrows.size+"");
         batch.end();
         controls.render(delta);
+        shapes.setProjectionMatrix(game.camera.combined);
+        shapes.begin(ShapeRenderer.ShapeType.Line);
+
+        shapes.rect(game.gs.playerChar.arrowInHandRangeX1, game.height / bot.screenFractionAbove0, game.gs.playerChar.arrowInHandRangeX2-game.gs.playerChar.arrowInHandRangeX1, bot.charHeight);
+        shapes.end();
 
     }
     public void hide(){
@@ -226,7 +234,7 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.maxArrows=(params[0]/5+2);
+        bot.maxArrows=(params[0]/7+2);
         bot.walkSpeed=params[1]/5+1;
         bot.arrowSpeed=5/((params[2]/10)+1)+1;
         bot.accuracy=30/((params[3]/3)+1);
@@ -235,7 +243,7 @@ public class GameScreen implements Screen{
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.maxArrows=(params[0]/5+2);
+        game.gs.playerChar.maxArrows=(params[0]/7+2);
         game.gs.playerChar.walkSpeed=params[1]/5+1;
         game.gs.playerChar.arrowSpeed=5/((params[2]/10)+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=curLevel+1;

@@ -127,9 +127,20 @@ public class MyGestureListener implements InputProcessor {
             //Gdx.app.log("deltaX ", ""+deltaX);
             //if (screenX * game.xScale > game.gs.controls.controlBounds.getWidth() && screenX * game.xScale < game.width - game.gs.controls.controlBounds.getWidth()) {
             try {
-                game.gs.arrows.get(game.gs.arrows.size - 1).update(-(0.25f * deltaX * game.xScale));
+                game.gs.arrows.get(game.gs.arrows.size - 1).update(-(0.15f * deltaX * game.xScale));
+
             } catch (ArrayIndexOutOfBoundsException e) {
             }
+            game.gs.arrow.calculatePlayerArrowRange();
+            /*game.gs.arrows.get(game.gs.arrows.size - 1).m=(float)Math.tan(Math.toRadians(game.gs.arrows.get(game.gs.arrows.size - 1).rotation+90));
+            game.gs.arrows.get(game.gs.arrows.size - 1).c=game.gs.arrows.get(game.gs.arrows.size - 1).yPosition-(game.gs.arrows.get(game.gs.arrows.size - 1).m*game.gs.arrows.get(game.gs.arrows.size - 1).xPosition);
+            game.gs.playerChar.arrowInHandRangeX1=(int)(((game.height / game.gs.bot.screenFractionAbove0) -  game.gs.arrows.get(game.gs.arrows.size - 1).c) /  game.gs.arrows.get(game.gs.arrows.size - 1).m);
+            game.gs.playerChar.arrowInHandRangeX2=(int)(((game.height / game.gs.bot.screenFractionAbove0) + game.gs.bot.charHeight - game.gs.arrows.get(game.gs.arrows.size - 1).c) / game.gs.arrows.get(game.gs.arrows.size - 1).m);
+            if(game.gs.playerChar.arrowInHandRangeX1<game.gs.playerChar.arrowInHandRangeX2){    // so that expectedXAtBotEnd is always greater than expectedXAtBotOrigin
+                game.gs.playerChar.arrowInHandRangeX2+=game.gs.playerChar.arrowInHandRangeX1;
+                game.gs.playerChar.arrowInHandRangeX1=game.gs.playerChar.arrowInHandRangeX2-game.gs.playerChar.arrowInHandRangeX1;
+                game.gs.playerChar.arrowInHandRangeX2=game.gs.playerChar.arrowInHandRangeX2-game.gs.playerChar.arrowInHandRangeX1;
+            }*/
             //}
         }
         else

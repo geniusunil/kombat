@@ -20,7 +20,7 @@ public class Bot {
     public int walkSpeed;
     float xPosition;
     public Array<Rectangle> xRangesToAvoid;
-    float screenFractionCharWidth,screenFractionCharHeight,screenFractionAbove0;
+    public float screenFractionCharWidth,screenFractionCharHeight,screenFractionAbove0;
     public Array<Rectangle> safeRanges;
     public Array<Integer> safeMidPoints;
     public Thread work;
