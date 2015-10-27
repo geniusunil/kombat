@@ -28,7 +28,12 @@ public class GameOverScreen implements Screen{
         playerLives=game.gs.playerChar.lives;
         if(botLives<playerLives) {
             youWon = true;
+            Gdx.app.log("GameOverScreen.java curLevel"," "+game.introScreen.lc.curLevel);
+
+            game.prefs.putInteger("coins", game.prefs.getInteger("coins")+(game.introScreen.lc.curLevel)*10);
+            game.prefs.flush();
             game.introScreen.lc.curLevel++;
+            Gdx.app.log("GameOverScreen.java coins"," "+game.prefs.getInteger("coins"));
         }
         game.gs.bot.dispose();
     }
