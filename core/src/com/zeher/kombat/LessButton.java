@@ -19,7 +19,7 @@ public class LessButton extends TextButton {
     public void act(float delta){
        // Gdx.app.log("delta: ",""+delta);
         wait+=delta;
-        if(touchFlag && lc.curLevel>0 && wait>delta*8) {
+        if(touchFlag && lc.curLevel>0 && wait>delta*6) {
             lc.curLevel--;
             lc.level.setText("" + lc.curLevel);
             wait=0f;
