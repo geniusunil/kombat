@@ -32,7 +32,7 @@ public class Kombat extends Game {
     public float yScale;
     public BitmapFont font;
     public IntroScreen introScreen;
-    public Preferences prefs;
+    public Preferences progress;
     @Override
     public void create () {
         xScale=(float)width/Gdx.graphics.getWidth();
@@ -49,7 +49,7 @@ public class Kombat extends Game {
         gs=new GameScreen(this);
         introScreen=new IntroScreen(this);
         mgl=new MyGestureListener(this);
-        prefs = Gdx.app.getPreferences("preferences");
+        progress = Gdx.app.getPreferences("preferences");
         setScreen(introScreen);
 
 

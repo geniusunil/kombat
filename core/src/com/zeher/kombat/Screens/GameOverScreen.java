@@ -30,15 +30,15 @@ public class GameOverScreen implements Screen{
             youWon = true;
             Gdx.app.log("GameOverScreen.java curLevel", " " + game.introScreen.lc.curLevel);
 
-            game.prefs.putInteger("coins", game.prefs.getInteger("coins") + (game.introScreen.lc.curLevel) * 10);
-//            game.prefs.flush();
+            game.progress.putInteger("coins", game.progress.getInteger("coins") + (game.introScreen.lc.curLevel) * 10);
+//            game.progress.flush();
             game.introScreen.lc.curLevel++;
-            if(game.prefs.getInteger("levels_unlocked")<game.introScreen.lc.curLevel){
-                game.prefs.putInteger("levels_unlocked",game.introScreen.lc.curLevel);
-                game.prefs.flush();
+            if(game.progress.getInteger("levels_unlocked")<game.introScreen.lc.curLevel){
+                game.progress.putInteger("levels_unlocked",game.introScreen.lc.curLevel);
+                game.progress.flush();
             }
-            Gdx.app.log("GameOverScreen.java coins", " " + game.prefs.getInteger("coins"));
-            Gdx.app.log("GameOverScreen.java levels unlocked: ", " " + game.prefs.getInteger("levels_unlocked"));
+            Gdx.app.log("GameOverScreen.java coins", " " + game.progress.getInteger("coins"));
+            Gdx.app.log("GameOverScreen.java levels unlocked: ", " " + game.progress.getInteger("levels_unlocked"));
         }
         game.gs.bot.dispose();
     }

@@ -7,49 +7,33 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.zeher.kombat.Kombat;
 import com.zeher.kombat.LessButton;
-import com.zeher.kombat.MoreButton;
 
 /**
- * Created by zucky on 9/20/2015.
+ * Created by zucky on 10/28/2015.
  */
-public class LevelChooser implements Screen {
+public class Settings implements Screen {
     Kombat game;
     Stage stage;
     Table table;
-    public static int curLevel;
-    public Label level;
+
     Texture texture;
     TextureRegion upRegion;
     TextureRegion downRegion;
     BitmapFont buttonFont;
     TextButton.TextButtonStyle style;
-    LessButton less;
-    Skin skin;
-    MoreButton more;
-    public TextButton back;
-    public LevelChooser(final Kombat game){
+
+    TextButton resetGame;
+    TextButton back;
+    public Settings (Kombat game){
         this.game=game;
-
-    }
-
-
-
-    @Override
-    public void show() {
         stage = new Stage(new ScreenViewport());
         table = new Table();
         table.setFillParent(true);
@@ -66,45 +50,31 @@ public class LevelChooser implements Screen {
         style.font = buttonFont;
 
         Gdx.input.setInputProcessor(stage);
-        less = new LessButton("lower", style,game);
-        table.add(less).expand().fill();
+        resetGame=new TextButton("reset game progress", style);
+        table.add(resetGame).expand().fill();
 
-
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
-        level=new Label(""+curLevel,skin);
-        level.setFontScale(10);
-        table.add(level).expand().fill();
-
-        more = new MoreButton("higher", style,game);
-        table.add(more).expand().fill();// Add widgets to the table here.
-
-        table.row();
         back = new TextButton("Back", style);
         table.add(back).expand().fill();// Add widgets to the table here.
-
-        less.addListener(new ActorGestureListener() {
-            public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                less.touchFlag = true;
-                Gdx.app.log("occured: ", "touchDown on less");
-            }
-
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                less.touchFlag = false;
-                Gdx.app.log("occured: ", "touchUp on less");
+        resetGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                resetGame();
             }
         });
 
-        more.addListener(new ActorGestureListener() {
-            public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                more.touchFlag = true;
-                Gdx.app.log("occured: ", "touchDown on less");
-            }
 
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                more.touchFlag = false;
-                Gdx.app.log("occured: ", "touchUp on less");
-            }
-        });
+    }
+
+    private void resetGame() {
+        game.progress.putInteger("coins",0);
+        game.progress.putInteger("levels_unlocked",0);
+        game.progress.flush();
+    }
+
+
+    @Override
+    public void show() {
+
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -112,6 +82,7 @@ public class LevelChooser implements Screen {
 
             }
         });
+
     }
 
     @Override
@@ -123,7 +94,7 @@ public class LevelChooser implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+
     }
 
     @Override
@@ -143,6 +114,6 @@ public class LevelChooser implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
 }

@@ -11,17 +11,17 @@ public class MoreButton extends TextButton {
     LevelChooser lc;
     float wait;
     public boolean touchFlag=false;
-    public Preferences prefs;
+    public Preferences progress;
     public MoreButton(String text, TextButtonStyle skin, Kombat game) {
         super(text, skin);
         this.lc=game.introScreen.lc;
-        prefs=game.prefs;
+        progress=game.progress;
     }
     @Override
     public void act(float delta){
        // Gdx.app.log("delta: ",""+delta);
         wait+=delta;
-        if(touchFlag && lc.curLevel<prefs.getInteger("levels_unlocked") && wait>delta*6) {
+        if(touchFlag && lc.curLevel<progress.getInteger("levels_unlocked") && wait>delta*6) {
             lc.curLevel++;
             lc.level.setText("" + lc.curLevel);
             wait=0f;

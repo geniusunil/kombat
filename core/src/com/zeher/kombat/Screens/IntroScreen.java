@@ -73,7 +73,7 @@ public class IntroScreen implements Screen{
         settings.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
+                game.setScreen(new Settings(game));
             }
         });
         help.addListener(new ActorGestureListener() {
