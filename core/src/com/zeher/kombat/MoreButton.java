@@ -12,6 +12,7 @@ public class MoreButton extends TextButton {
     float wait;
     public boolean touchFlag=false;
     public Preferences progress;
+
     public MoreButton(String text, TextButtonStyle skin, Kombat game) {
         super(text, skin);
         this.lc=game.introScreen.lc;
@@ -23,6 +24,8 @@ public class MoreButton extends TextButton {
         wait+=delta;
         if(touchFlag && lc.curLevel<progress.getInteger("levels_unlocked") && wait>delta*6) {
             lc.curLevel++;
+            progress.putInteger("curLevel",lc.curLevel);
+            progress.flush();
             lc.level.setText("" + lc.curLevel);
             wait=0f;
         }

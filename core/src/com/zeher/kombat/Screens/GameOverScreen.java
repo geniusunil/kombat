@@ -32,11 +32,13 @@ public class GameOverScreen implements Screen{
 
             game.progress.putInteger("coins", game.progress.getInteger("coins") + (game.introScreen.lc.curLevel) * 10);
 //            game.progress.flush();
-            game.introScreen.lc.curLevel++;
-            if(game.progress.getInteger("levels_unlocked")<game.introScreen.lc.curLevel){
-                game.progress.putInteger("levels_unlocked",game.introScreen.lc.curLevel);
-                game.progress.flush();
+            game.progress.putInteger("curLevel",game.progress.getInteger("curLevel")+1);
+            game.progress.flush();
+            if(game.progress.getInteger("levels_unlocked")<game.progress.getInteger("curLevel")){
+                game.progress.putInteger("levels_unlocked", game.progress.getInteger("curLevel"));
+
             }
+            game.progress.flush();
             Gdx.app.log("GameOverScreen.java coins", " " + game.progress.getInteger("coins"));
             Gdx.app.log("GameOverScreen.java levels unlocked: ", " " + game.progress.getInteger("levels_unlocked"));
         }

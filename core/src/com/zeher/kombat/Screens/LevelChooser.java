@@ -41,8 +41,12 @@ public class LevelChooser implements Screen {
     Skin skin;
     MoreButton more;
     public TextButton back;
+    public TextButton maxArrowsLevelUp,walkSpeedLevelUp,arrowSpeedLevelUp,healthBarLevelUp,truthLevelUp;
+    public Label coins;
+    public int needForMaxArrowsLevelUp,needForWalkSpeedLevelUp,needForArrowSpeedLevelUp,needForHealthBarLevelUp,needForTruthLevelUp;
     public LevelChooser(final Kombat game){
         this.game=game;
+        curLevel=game.progress.getInteger("curLevel");
 
     }
 
@@ -71,6 +75,7 @@ public class LevelChooser implements Screen {
 
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
+
         level=new Label(""+curLevel,skin);
         level.setFontScale(10);
         table.add(level).expand().fill();
@@ -78,10 +83,112 @@ public class LevelChooser implements Screen {
         more = new MoreButton("higher", style,game);
         table.add(more).expand().fill();// Add widgets to the table here.
 
-        table.row();
+
         back = new TextButton("Back", style);
         table.add(back).expand().fill();// Add widgets to the table here.
 
+        coins=new Label(""+game.progress.getInteger("coins"),skin);
+        coins.setFontScale(10);
+        table.add(coins).expand().fill();
+        int progressMaxArrows=game.progress.getInteger("maxArrows");
+        needForMaxArrowsLevelUp=progressMaxArrows*40+25;
+        maxArrowsLevelUp=new TextButton("maxArrows "+progressMaxArrows+"\nneeds: "+needForMaxArrowsLevelUp,style);
+        int progressWalkSpeed=game.progress.getInteger("walkSpeed");
+        needForWalkSpeedLevelUp=progressWalkSpeed*40+25;
+        walkSpeedLevelUp=new TextButton("walkSpeed "+progressWalkSpeed+"\nneeds: "+needForWalkSpeedLevelUp,style);
+        int progressArrowSpeed=game.progress.getInteger("arrowSpeed");
+        needForArrowSpeedLevelUp=progressArrowSpeed*40+25;
+        arrowSpeedLevelUp=new TextButton("arrowSpeed"+progressArrowSpeed+"\nneeds: "+needForArrowSpeedLevelUp,style);
+        int progressHealthBar=game.progress.getInteger("healthBar");
+        needForHealthBarLevelUp=progressHealthBar*40+25;
+        healthBarLevelUp=new TextButton("healthBar "+progressHealthBar+"\nneeds: "+needForHealthBarLevelUp,style);
+        int progressTruth=game.progress.getInteger("truth");
+        needForTruthLevelUp=progressTruth*40+25;
+        truthLevelUp=new TextButton("truth "+progressTruth+"\nneeds: "+needForTruthLevelUp,style);
+
+        table.row();
+        table.add(maxArrowsLevelUp).expand().fill();
+
+        table.add(walkSpeedLevelUp).expand().fill();
+        table.add(arrowSpeedLevelUp).expand().fill();
+
+        table.add(healthBarLevelUp).expand().fill();
+        table.add(truthLevelUp).expand().fill();
+        addListerners();
+
+    }
+
+    private void addListerners() {
+        maxArrowsLevelUp.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (game.progress.getInteger("coins") >= needForMaxArrowsLevelUp) {
+                    game.progress.putInteger("maxArrows", (game.progress.getInteger("maxArrows") + 1));
+                    game.progress.putInteger("coins", game.progress.getInteger("coins") - needForMaxArrowsLevelUp);
+                    game.progress.flush();
+                    coins.setText("" + game.progress.getInteger("coins"));
+                    int progressMaxArrows = game.progress.getInteger("maxArrows");
+                    needForMaxArrowsLevelUp = progressMaxArrows * 40 + 25;
+                    maxArrowsLevelUp.setText("maxArrows " + progressMaxArrows + "\nneeds: " + needForMaxArrowsLevelUp);
+                }
+            }
+        });
+        walkSpeedLevelUp.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (game.progress.getInteger("coins") >= needForWalkSpeedLevelUp) {
+                    game.progress.putInteger("walkSpeed", (game.progress.getInteger("walkSpeed") + 1));
+                    game.progress.putInteger("coins", game.progress.getInteger("coins") - needForWalkSpeedLevelUp);
+                    game.progress.flush();
+                    coins.setText("" + game.progress.getInteger("coins"));
+                    int progressWalkSpeed = game.progress.getInteger("walkSpeed");
+                    needForWalkSpeedLevelUp = progressWalkSpeed * 40 + 25;
+                    walkSpeedLevelUp.setText("walkSpeed " + progressWalkSpeed + "\nneeds: " + needForWalkSpeedLevelUp);
+                }
+            }
+        });
+        arrowSpeedLevelUp.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(game.progress.getInteger("coins")>=needForArrowSpeedLevelUp){
+                    game.progress.putInteger("arrowSpeed", (game.progress.getInteger("arrowSpeed") + 1));
+                    game.progress.putInteger("coins",game.progress.getInteger("coins")-needForArrowSpeedLevelUp);
+                    game.progress.flush();
+                    coins.setText("" + game.progress.getInteger("coins"));
+                    int progressArrowSpeed=game.progress.getInteger("arrowSpeed");
+                    needForArrowSpeedLevelUp=progressArrowSpeed*40+25;
+                    arrowSpeedLevelUp.setText("arrowSpeed"+progressArrowSpeed+"\nneeds: "+needForArrowSpeedLevelUp);
+                }
+            }
+        });
+        healthBarLevelUp.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(game.progress.getInteger("coins")>=needForHealthBarLevelUp){
+                    game.progress.putInteger("healthBar", (game.progress.getInteger("healthBar") + 1));
+                    game.progress.putInteger("coins",game.progress.getInteger("coins")-needForHealthBarLevelUp);
+                    game.progress.flush();
+                    coins.setText("" + game.progress.getInteger("coins"));
+                    int progressHealthBar=game.progress.getInteger("healthBar");
+                    needForHealthBarLevelUp=progressHealthBar*40+25;
+                    healthBarLevelUp.setText("healthBar"+progressHealthBar+"\nneeds: "+needForHealthBarLevelUp);
+                }
+            }
+        });
+        truthLevelUp.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(game.progress.getInteger("coins")>=needForTruthLevelUp){
+                    game.progress.putInteger("truth", (game.progress.getInteger("truth") + 1));
+                    game.progress.putInteger("coins",game.progress.getInteger("coins")-needForTruthLevelUp);
+                    game.progress.flush();
+                    coins.setText("" + game.progress.getInteger("coins"));
+                    int progressTruth=game.progress.getInteger("truth");
+                    needForTruthLevelUp=progressTruth*40+25;
+                    truthLevelUp.setText("truth"+progressTruth+"\nneeds: "+needForTruthLevelUp);
+                }
+            }
+        });
         less.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 less.touchFlag = true;

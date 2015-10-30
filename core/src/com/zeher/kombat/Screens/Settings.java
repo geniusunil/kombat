@@ -68,6 +68,12 @@ public class Settings implements Screen {
     private void resetGame() {
         game.progress.putInteger("coins",0);
         game.progress.putInteger("levels_unlocked",0);
+        game.progress.putInteger("maxArrows", 0);
+        game.progress.putInteger("walkSpeed", 0);
+        game.progress.putInteger("arrowSpeed", 0);
+        game.progress.putInteger("healthBar", 0);
+        game.progress.putInteger("truth",0);
+        game.progress.putInteger("curLevel",0);
         game.progress.flush();
     }
 

@@ -220,6 +220,7 @@ public class GameScreen implements Screen{
         thread.start();
     }
     public void setLevel(int curLevel){
+        curLevel-=game.progress.getInteger("truth");
         int remainder=curLevel%numOfParameters;
         int quotient=curLevel/numOfParameters;
         Gdx.app.log("setLevel:","curlevel "+curLevel+" rem "+remainder+" quo"+quotient);
@@ -243,10 +244,10 @@ public class GameScreen implements Screen{
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.maxArrows=(params[0]/7+2);
-        game.gs.playerChar.walkSpeed=params[1]/5+1;
-        game.gs.playerChar.arrowSpeed=5/((params[2]/10)+1)+1; //arrowSpeed can't be zero
-        game.gs.playerChar.lives=curLevel+1;
+        game.gs.playerChar.maxArrows=game.progress.getInteger("maxArrows")/7+2;
+        game.gs.playerChar.walkSpeed=game.progress.getInteger("walkSpeed")/5+1;
+        game.gs.playerChar.arrowSpeed=5/((game.progress.getInteger("arrowSpeed")/10)+1)+1; //arrowSpeed can't be zero
+        game.gs.playerChar.lives=game.progress.getInteger("healthBar")*4+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
         Gdx.app.log("params",Arrays.toString(params));
