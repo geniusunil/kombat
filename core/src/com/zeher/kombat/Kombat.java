@@ -4,7 +4,7 @@ package com.zeher.kombat;
     1.
 
     2.social share score and leaderboard - after making account
-    next 3. shopping
+    next 3.
     4. graphics
     5. Sound
     6.

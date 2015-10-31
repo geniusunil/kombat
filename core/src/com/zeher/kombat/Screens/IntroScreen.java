@@ -33,11 +33,12 @@ public class IntroScreen implements Screen{
     public InstructionsScreen instructions;
     public IntroScreen (Kombat game){
         this.game=game;
+        introbg=new Texture("introbg.jpg");
     }
     @Override
     public void show() {
         showTime=System.currentTimeMillis();
-        introbg=new Texture("introbg.jpg");
+
         instructions=new InstructionsScreen(game);
         lc=new LevelChooser(game);
         //for the button

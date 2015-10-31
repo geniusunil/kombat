@@ -235,18 +235,18 @@ public class GameScreen implements Screen{
 
         //on the bot side
 
-        bot.maxArrows=(params[0]/7+2);
-        bot.walkSpeed=params[1]/5+1;
-        bot.arrowSpeed=5/((params[2]/10)+1)+1;
-        bot.accuracy=30/((params[3]/3)+1);
-        bot.lives=curLevel+1;
+        bot.maxArrows=(params[0]/2+2);    //2 to 5 range=3
+        bot.walkSpeed=params[1]+1;        //1 to 6 range 5
+        bot.arrowSpeed=5/((params[2]/2)+1)+1; //6 to 2 range 4
+        bot.accuracy=15/((params[3]/2)+1); // 15 to 3 range 12
+        bot.lives=curLevel+1;   //
         //bot.dodgeLevel=params[4]+1;
         Gdx.app.log("bot arrowspeed: ",bot.arrowSpeed+"");
         //player side
        // game.gs.playerChar.arrow_interval_level=bot.arrow_interval_level;
-        game.gs.playerChar.maxArrows=game.progress.getInteger("maxArrows")/7+2;
-        game.gs.playerChar.walkSpeed=game.progress.getInteger("walkSpeed")/5+1;
-        game.gs.playerChar.arrowSpeed=5/((game.progress.getInteger("arrowSpeed")/10)+1)+1; //arrowSpeed can't be zero
+        game.gs.playerChar.maxArrows=game.progress.getInteger("maxArrows")/2+2;
+        game.gs.playerChar.walkSpeed=game.progress.getInteger("walkSpeed")+1;
+        game.gs.playerChar.arrowSpeed=5/((game.progress.getInteger("arrowSpeed")/2)+1)+1; //arrowSpeed can't be zero
         game.gs.playerChar.lives=game.progress.getInteger("healthBar")*4+1;
 
         //Gdx.app.log("arrow_intervals",game.gs.playerChar.arrow_interval +"");
