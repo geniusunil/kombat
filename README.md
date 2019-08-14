@@ -6,7 +6,7 @@ Kombat is a libGDX based game made for learning.
 
 Platforms supported :
 
-Android
-iOS
-windows
-browser
+- Android
+- iOS
+- windows
+- browser
